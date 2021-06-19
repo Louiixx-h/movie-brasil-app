@@ -1,10 +1,10 @@
 package br.com.luishenrique.moviesbrasil.models
 
-class ResponseMovie(
-    val results: List<MoviePopular>
+class ResponseMovieNowPlaying(
+    val results: List<MovieNowPlaying>
 )
 
-class Movie(
+class MovieNowPlaying(
     val title: String,
     val vote_average: String,
     val poster_path: String,

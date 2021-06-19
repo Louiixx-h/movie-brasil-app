@@ -5,4 +5,5 @@
     <string name="vote">8.6</string>
     <string name="movies_recent">Filmes recentes</string>
     <string name="movies_top_rated">Os Mais Votados</string>
+    <string name="movies_now_playing">Estreia</string>
 </resources>

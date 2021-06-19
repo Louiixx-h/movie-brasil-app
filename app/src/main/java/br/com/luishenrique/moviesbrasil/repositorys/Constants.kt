@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.repositorys
 
+val TAG_MOVIE_NOW_PLAYING = "movie-now-playing"
 val TAG_MOVIE_POPULAR = "movie-popular"
 val TAG_MOVIE_RECENT = "movie-recent"
 val TAG_MOVIE_LATEST = "movie-latest"
