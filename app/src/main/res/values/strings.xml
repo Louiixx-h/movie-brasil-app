@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Movies Brasil</string>
+    <string name="movies_popular">Filmes populares</string>
+    <string name="title">título</string>
+    <string name="vote">8.6</string>
+    <string name="movies_recent">Filmes recentes</string>
+    <string name="movies_top_rated">Os Mais Votados</string>
+</resources>
