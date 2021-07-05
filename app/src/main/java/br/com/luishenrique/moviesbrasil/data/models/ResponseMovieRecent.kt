@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.models
+package br.com.luishenrique.moviesbrasil.data.models
 
 class ResponseMovieTopRated(
     val results: List<MovieTopRated>

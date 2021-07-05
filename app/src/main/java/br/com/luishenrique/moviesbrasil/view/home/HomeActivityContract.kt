@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.views.home
+package br.com.luishenrique.moviesbrasil.view.home
 
 interface HomeActivityContract {
     fun initView()

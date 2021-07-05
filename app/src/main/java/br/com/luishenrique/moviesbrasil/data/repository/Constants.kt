@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.repositorys
+package br.com.luishenrique.moviesbrasil.data.repository
 
 val TAG_MOVIE_NOW_PLAYING = "movie-now-playing"
 val TAG_MOVIE_POPULAR = "movie-popular"

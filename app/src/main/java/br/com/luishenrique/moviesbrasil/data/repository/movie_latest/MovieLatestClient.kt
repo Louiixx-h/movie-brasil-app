@@ -1,6 +1,6 @@
-package br.com.luishenrique.moviesbrasil.repositorys.movie_latest
+package br.com.luishenrique.moviesbrasil.data.repository.movie_latest
 
-import br.com.luishenrique.moviesbrasil.repositorys.BASE_URL
+import br.com.luishenrique.moviesbrasil.data.repository.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

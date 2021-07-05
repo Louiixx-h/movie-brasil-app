@@ -1,6 +1,6 @@
-package br.com.luishenrique.moviesbrasil.repositorys.movie_popular
+package br.com.luishenrique.moviesbrasil.data.repository.movie_popular
 
-import br.com.luishenrique.moviesbrasil.models.ResponseMoviePopular
+import br.com.luishenrique.moviesbrasil.data.models.ResponseMoviePopular
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

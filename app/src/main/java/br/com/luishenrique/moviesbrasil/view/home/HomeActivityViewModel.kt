@@ -1,14 +1,17 @@
-package br.com.luishenrique.moviesbrasil.views.home
+package br.com.luishenrique.moviesbrasil.view.home
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.luishenrique.moviesbrasil.models.*
-import br.com.luishenrique.moviesbrasil.repositorys.*
-import br.com.luishenrique.moviesbrasil.repositorys.movie_latest.MovieLatestClient
-import br.com.luishenrique.moviesbrasil.repositorys.movie_popular.MoviePopularClient
-import br.com.luishenrique.moviesbrasil.repositorys.movie_recent.MovieRecentClient
-import br.com.luishenrique.moviesbrasil.repositorys.now_playing.MovieNowPlayingClient
+import br.com.luishenrique.moviesbrasil.data.repository.*
+import br.com.luishenrique.moviesbrasil.data.models.Movie
+import br.com.luishenrique.moviesbrasil.data.models.ResponseMovieNowPlaying
+import br.com.luishenrique.moviesbrasil.data.models.ResponseMoviePopular
+import br.com.luishenrique.moviesbrasil.data.models.ResponseMovieTopRated
+import br.com.luishenrique.moviesbrasil.data.repository.movie_latest.MovieLatestClient
+import br.com.luishenrique.moviesbrasil.data.repository.movie_popular.MoviePopularClient
+import br.com.luishenrique.moviesbrasil.data.repository.movie_recent.MovieRecentClient
+import br.com.luishenrique.moviesbrasil.data.repository.now_playing.MovieNowPlayingClient
 import retrofit2.Call
 import retrofit2.Response
 

@@ -1,6 +1,6 @@
-package br.com.luishenrique.moviesbrasil.repositorys.movie_latest
+package br.com.luishenrique.moviesbrasil.data.repository.movie_latest
 
-import br.com.luishenrique.moviesbrasil.models.Movie
+import br.com.luishenrique.moviesbrasil.data.models.Movie
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

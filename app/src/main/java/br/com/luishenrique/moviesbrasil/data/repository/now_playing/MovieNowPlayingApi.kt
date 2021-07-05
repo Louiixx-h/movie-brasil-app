@@ -1,7 +1,6 @@
-package br.com.luishenrique.moviesbrasil.repositorys.now_playing
+package br.com.luishenrique.moviesbrasil.data.repository.now_playing
 
-import br.com.luishenrique.moviesbrasil.models.ResponseMovie
-import br.com.luishenrique.moviesbrasil.models.ResponseMovieNowPlaying
+import br.com.luishenrique.moviesbrasil.data.models.ResponseMovieNowPlaying
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
