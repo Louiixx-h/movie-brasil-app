@@ -1,12 +1,9 @@
 package br.com.luishenrique.moviesbrasil.data.repository
 
-val TAG_MOVIE_NOW_PLAYING = "movie-now-playing"
-val TAG_MOVIE_POPULAR = "movie-popular"
-val TAG_MOVIE_RECENT = "movie-recent"
-val TAG_MOVIE_LATEST = "movie-latest"
-val KEY_USER = "86ef71989f8c4a9a7cc321d7a0f6a528"
-val LANGUAGE = "en-US"
-val BASE_URL: String
-    get() {
-        return "https://api.themoviedb.org/3/"
-    }
+const val TAG_MOVIE_NOW_PLAYING = "movie-now-playing"
+const val TAG_MOVIE_POPULAR = "movie-popular"
+const val TAG_MOVIE_RECENT = "movie-recent"
+const val TAG_MOVIE_LATEST = "movie-latest"
+const val KEY_USER = "86ef71989f8c4a9a7cc321d7a0f6a528"
+const val LANGUAGE = "en-US"
+const val BASE_URL: String ="https://api.themoviedb.org/3/"
