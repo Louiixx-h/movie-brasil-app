@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.view.home
+package br.com.luishenrique.moviesbrasil.presentation.view.home
 
 interface HomeActivityContract {
     fun initView()
@@ -6,4 +6,5 @@ interface HomeActivityContract {
     fun getMoviesNowPlaying()
     fun getMoviesPopular()
     fun getMoviesRecent()
+    fun setProgressBar()
 }

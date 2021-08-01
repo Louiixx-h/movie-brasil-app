@@ -1,11 +1,13 @@
 package br.com.luishenrique.moviesbrasil.data.models
 
-class ResponseMovie(
-    val results: List<MoviePopular>
+import com.google.gson.annotations.SerializedName
+
+data class ResponseMovie(
+    @SerializedName("results") val results: List<Movie>
 )
 
-class Movie(
-    val title: String,
-    val vote_average: String,
-    val poster_path: String,
-    val backdrop_path: String)
+data class Movie(
+    @SerializedName("title") val title: String,
+    @SerializedName("vote_average") val voteAverage: String,
+    @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("backdrop_path") val backdropPath: String)
