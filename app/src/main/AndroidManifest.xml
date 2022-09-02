@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesBrasil">
         <activity
-            android:name=".presentation.view.HomeActivity"
+            android:name=".presentation.view.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

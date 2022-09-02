@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Luis Henrique/AndroidStudioProjects/Movie-Brasil/app/src/main/res/layout/fragment_details.xml" value="0.2798913043478261" />
+        <entry key="..\:/Users/Luis Henrique/AndroidStudioProjects/Movie-Brasil/app/src/main/res/layout/fragment_home.xml" value="0.2798913043478261" />
+        <entry key="..\:/Users/Luis Henrique/AndroidStudioProjects/Movie-Brasil/app/src/main/res/layout/sample_header_view.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/drawable/background_edit_text.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.37395833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />

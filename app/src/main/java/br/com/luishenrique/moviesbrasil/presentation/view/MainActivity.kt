@@ -5,7 +5,7 @@ import android.os.Bundle
 import br.com.luishenrique.moviesbrasil.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
