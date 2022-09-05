@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.data.models.ResponseMovie
 import br.com.luishenrique.moviesbrasil.presentation.adapters.AdapterMovie
@@ -18,8 +19,11 @@ class HomeFragment : Fragment(), HomeActivityContract {
 
     private lateinit var viewModel: HomeActivityViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -42,7 +46,9 @@ class HomeFragment : Fragment(), HomeActivityContract {
     override fun getMoviesNowPlaying() {
         viewModel.getMoviesNowPlaying()
         viewModel.moviesNowPlaying.observe(requireActivity()) { responseMovie ->
-            rv_movies_now_playing.adapter = AdapterMovie(requireContext(), responseMovie.results)
+            rv_movies_now_playing.adapter = AdapterMovie(responseMovie.results) {
+
+            }
             setBanner(responseMovie)
         }
     }
@@ -57,14 +63,18 @@ class HomeFragment : Fragment(), HomeActivityContract {
     override fun getMoviesPopular() {
         viewModel.getMoviesPopular()
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
-            rv_movies_popular.adapter = AdapterMovie(requireContext(), responseMovie.results)
+            rv_movies_popular.adapter = AdapterMovie(responseMovie.results) {
+
+            }
         }
     }
 
     override fun getMoviesRecent() {
         viewModel.getMoviesTopRated()
         viewModel.movieTopRatedList.observe(requireActivity()) { responseMovie ->
-            rv_movies_top_rated.adapter = AdapterMovie(requireContext(), responseMovie.results)
+            rv_movies_top_rated.adapter = AdapterMovie(responseMovie.results) {
+
+            }
         }
     }
 

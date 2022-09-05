@@ -1,9 +1,11 @@
 package br.com.luishenrique.moviesbrasil.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Widget(
-    val type: TypeDetailEnum,
-    val title: String? = null,
-    val image: String? = null,
-    val color: String? = null,
-    val description: String? = null,
+    @SerializedName("type") val type: TypeDetailEnum? = null,
+    @SerializedName("title") val title: String? = null,
+    @SerializedName("image") val image: String? = null,
+    @SerializedName("color") val color: String? = null,
+    @SerializedName("description") val description: String? = null,
 )
