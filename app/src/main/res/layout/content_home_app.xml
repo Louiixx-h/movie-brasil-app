@@ -6,74 +6,27 @@
     android:layout_height="match_parent"
     android:background="@color/gray_dark">
 
-    <TextView
-        android:id="@+id/tv_title_now_playing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/movies_now_playing"
-        android:textColor="@color/secondary_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_now_playing"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_now_playing"
-        tools:itemCount="15"
-        tools:listitem="@layout/item_movie" />
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_title_recent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/movies_top_rated"
-        android:textColor="@color/secondary_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@+id/rv_movies_now_playing"
-        app:layout_constraintTop_toBottomOf="@+id/rv_movies_now_playing" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_top_rated"
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_recent"
-        tools:listitem="@layout/item_movie" />
-
-    <TextView
-        android:id="@+id/tv_title_popular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/movies_popular"
-        android:textColor="@color/secondary_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@+id/rv_movies_top_rated"
-        app:layout_constraintTop_toBottomOf="@+id/rv_movies_top_rated" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_movies_popular"
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_popular"
-        tools:itemCount="15"
-        tools:listitem="@layout/item_movie" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="15"
+            tools:listitem="@layout/item_movie" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesBrasil">
         <activity
-            android:name=".presentation.view.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
