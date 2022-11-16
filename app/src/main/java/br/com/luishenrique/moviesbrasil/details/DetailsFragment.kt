@@ -25,7 +25,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details), DetailsContract.Vie
 
     override fun init() {
         containerDetail = requireActivity().findViewById(R.id.containerDetail)
-
         presenter.getDetail()
     }
 

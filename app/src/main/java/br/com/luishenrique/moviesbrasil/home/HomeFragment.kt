@@ -1,35 +1,25 @@
 package br.com.luishenrique.moviesbrasil.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.R
+import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
+import br.com.luishenrique.moviesbrasil.details.DetailsActivity
+import br.com.luishenrique.moviesbrasil.details.DetailsFragment
 import br.com.luishenrique.moviesbrasil.home.adapters.AdapterMovie
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
 
-class HomeFragment : Fragment(R.layout.fragment_home), HomeFragmentContract, AdapterMovie.ListenerMovie {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, AdapterMovie.ListenerMovie {
 
-    private lateinit var fragmentHomeBinding: FragmentHomeBinding
     private lateinit var adapterMovie: AdapterMovie
     private lateinit var viewModel: HomeFragmentViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+    override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
-        return fragmentHomeBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun setUpViews() {
         configViewModel()
         initView()
     }
@@ -44,7 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeFragmentContract, Ada
     }
 
     override fun setListMovies() {
-        fragmentHomeBinding.contentHome.rvMovies.adapter = adapterMovie
+        binding.contentHome.rvMovies.adapter = adapterMovie
     }
 
     override fun configViewModel() {
@@ -52,10 +42,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeFragmentContract, Ada
     }
 
     override fun setBanner(movie: Movie) {
-        fragmentHomeBinding.tvTitleMovieLatest.text = movie.title
+        binding.tvTitleMovieLatest.text = movie.title
 
         setImage(
-            fragmentHomeBinding.ivThumbnailLatestMovie,
+            binding.ivThumbnailLatestMovie,
             requireContext(),
             BASE_IMAGE + movie.backdropPath
         )
@@ -64,7 +54,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeFragmentContract, Ada
     override fun setMovies() {
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
             setBanner(responseMovie.results[0])
-            (fragmentHomeBinding.contentHome.rvMovies.adapter as AdapterMovie).movies = responseMovie.results
+            (binding.contentHome.rvMovies.adapter as AdapterMovie).movies = responseMovie.results
         }
     }
 
@@ -76,17 +66,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeFragmentContract, Ada
 
     private fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
         if (stateProgressBar) {
-            fragmentHomeBinding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
         } else {
-            fragmentHomeBinding.progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
     }
 
-    companion object {
-        fun newInstance() = HomeFragment()
+    override fun onClick(movie: Movie) {
+        requireContext().startActivity(DetailsActivity.newInstance(requireContext()))
     }
 
-    override fun onClick(movie: Movie) {
-
+    companion object {
+        @JvmStatic
+        fun newInstance() = HomeFragment()
     }
 }

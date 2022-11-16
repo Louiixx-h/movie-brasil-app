@@ -40,7 +40,7 @@ class AdapterMovie(
                 BASE_IMAGE + movie.backdropPath
             )
 
-            listenerMovie.onClick(movie)
+            view.setOnClickListener { listenerMovie.onClick(movie) }
         }
     }
 

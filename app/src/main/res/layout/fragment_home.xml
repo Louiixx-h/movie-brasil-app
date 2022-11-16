@@ -52,7 +52,7 @@
                     android:id="@+id/v_shadow_movie_latest"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:background="@drawable/background_shadow_thumbnail"
+                    android:background="@drawable/bg_shadow_thumbnail"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_latest_movie"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -81,6 +81,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         app:layout_anchor="@+id/app_bar"
-        app:layout_anchorGravity="bottom|center" />
+        app:layout_anchorGravity="bottom|center"
+        tools:visibility="visible"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

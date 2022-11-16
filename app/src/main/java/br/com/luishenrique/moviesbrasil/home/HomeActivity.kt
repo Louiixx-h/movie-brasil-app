@@ -3,8 +3,13 @@ package br.com.luishenrique.moviesbrasil.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
+import br.com.luishenrique.moviesbrasil.favorites.FavoritesFragment
+import br.com.luishenrique.moviesbrasil.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -14,11 +19,20 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setSupportActionBar(findViewById(R.id.toolbar_home))
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
+        setToolbar()
         setBottomNavigation()
+        setFragment(HomeFragment.newInstance())
+    }
+
+    private fun setToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        val title: TextView = toolbar.findViewById(R.id.toolbar_title)
+        title.text = getString(R.string.app_name)
     }
 
     private fun setBottomNavigation() {
@@ -26,10 +40,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun setFragment(fragment: Fragment) {
-        with(supportFragmentManager.beginTransaction()) {
-            replace(R.id.homeFragmentContainer, fragment)
+        supportFragmentManager.commit {
             addToBackStack(null)
-            commit()
+            replace(R.id.homeFragmentContainer, fragment, "home")
         }
     }
 
@@ -39,10 +52,10 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 setFragment(HomeFragment.newInstance())
             }
             R.id.menuSearch -> {
-                setFragment(HomeFragment.newInstance())
+                setFragment(SearchFragment.newInstance())
             }
             R.id.menuFavorites -> {
-                setFragment(HomeFragment.newInstance())
+                setFragment(FavoritesFragment.newInstance())
             }
         }
         return false

@@ -33,10 +33,16 @@ android {
     viewBinding {
         enabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.databinding:databinding-runtime:7.1.2'
     def lifecycle_version = "2.5.1"
     def nav_version = "2.3.5"
 
