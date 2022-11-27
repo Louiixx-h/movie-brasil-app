@@ -12,6 +12,7 @@ object MovieMapper {
     }
 
     private fun getMovie(movie: MovieResponseVO) = Movie(
+        id = movie.id,
         title = movie.title,
         voteAverage = movie.voteAverage,
         posterPath = movie.posterPath,

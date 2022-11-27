@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomRatingStar" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+        <item name="colorControlNormal">@color/white_f2f2f2</item>
+        <item name="colorControlActivated">@color/secondary_light_color</item>
+    </style>
+</resources>

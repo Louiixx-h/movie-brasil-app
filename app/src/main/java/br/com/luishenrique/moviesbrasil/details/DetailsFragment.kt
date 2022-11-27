@@ -1,55 +1,70 @@
 package br.com.luishenrique.moviesbrasil.details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
-import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.data.models.Detail
-import br.com.luishenrique.moviesbrasil.data.models.TypeDetailEnum
-import br.com.luishenrique.moviesbrasil.details.components.ButtonComponentView
-import br.com.luishenrique.moviesbrasil.details.components.DescriptionComponentView
-import br.com.luishenrique.moviesbrasil.details.components.HeaderComponentView
+import androidx.lifecycle.ViewModelProvider
+import br.com.luishenrique.moviesbrasil.base.BaseFragment
+import br.com.luishenrique.moviesbrasil.databinding.FragmentDetailsBinding
+import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
+import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
+import br.com.luishenrique.moviesbrasil.utils.getRating
+import br.com.luishenrique.moviesbrasil.utils.setImage
 
-class DetailsFragment : Fragment(R.layout.fragment_details), DetailsContract.View {
+class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
-    private val presenter: DetailsContract.Presenter by lazy { DetailsPresenterImpl(this) }
+    private val movieId: Int? by lazy {
+        arguments?.getInt(DetailsActivity.DETAILS_ID)
+    }
+    private val viewModel: DetailsViewModel by lazy {
+        ViewModelProvider(this)[DetailsViewModel::class.java]
+    }
 
-    private lateinit var containerDetail: LinearLayout
+    override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        setComponents()
+        setProgressBar()
     }
 
-    override fun init() {
-        containerDetail = requireActivity().findViewById(R.id.containerDetail)
-        presenter.getDetail()
+    private fun init() {
+        viewModel.getDetails(movieId!!)
     }
 
-    override fun render(detail: Detail) {
-        detail.widgets?.forEach {
-            val component: View = when(it.type) {
-                TypeDetailEnum.HEADER -> HeaderComponentView.newInstance(requireContext(), it)
-                TypeDetailEnum.DIVISOR -> TODO()
-                TypeDetailEnum.DESCRIPTION -> DescriptionComponentView.newInstance(requireContext(), it)
-                TypeDetailEnum.BUTTON -> ButtonComponentView.newInstance(requireContext(), it)
-                else -> {
-                    throw Exception("Erro: Type não encontrado!")
-                }
-            }
-
-            containerDetail.addView(component)
+    private fun setComponents() {
+        viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetail ->
+            renderDetails(movieDetail)
         }
     }
 
-    override fun context(): Context {
-        return requireContext()
+    private fun setProgressBar() {
+        viewModel.progressBar.observe(requireActivity()) { stateProgressBar ->
+            changeVisibilityProgressBar(stateProgressBar)
+        }
+    }
+
+    private fun renderDetails(movieDetail: MovieDetail) {
+        setImage(binding.ivPoster, BASE_IMAGE + movieDetail.backdropPath)
+        binding.tvTitle.text = movieDetail.originalTitle
+        binding.overview.text = movieDetail.overview
+        binding.ratingStar.rating = movieDetail.voteAverage?.getRating() ?: 0f
+    }
+
+    private fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
+        if (stateProgressBar) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = DetailsFragment()
+        fun newInstance(movieId: Int) = DetailsFragment().apply {
+            val args = Bundle()
+            args.putInt(DetailsActivity.DETAILS_ID, movieId)
+            arguments = args
+        }
     }
 }

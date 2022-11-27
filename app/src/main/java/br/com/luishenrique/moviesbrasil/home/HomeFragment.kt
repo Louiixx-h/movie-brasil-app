@@ -6,26 +6,28 @@ import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
-import br.com.luishenrique.moviesbrasil.details.DetailsFragment
 import br.com.luishenrique.moviesbrasil.home.adapters.AdapterMovie
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
+import br.com.luishenrique.moviesbrasil.utils.toast
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, AdapterMovie.ListenerMovie {
 
-    private lateinit var adapterMovie: AdapterMovie
-    private lateinit var viewModel: HomeFragmentViewModel
+    private val adapterMovie: AdapterMovie by lazy {
+        AdapterMovie(this)
+    }
+    private val viewModel: HomeFragmentViewModel by lazy {
+        ViewModelProvider(this)[HomeFragmentViewModel::class.java]
+    }
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun setUpViews() {
-        configViewModel()
         initView()
     }
 
     override fun initView() {
-        adapterMovie = AdapterMovie(this)
         viewModel.getMoviesPopular()
 
         setListMovies()
@@ -35,10 +37,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setListMovies() {
         binding.contentHome.rvMovies.adapter = adapterMovie
-    }
-
-    override fun configViewModel() {
-        viewModel = ViewModelProvider(this)[HomeFragmentViewModel::class.java]
     }
 
     override fun setBanner(movie: Movie) {
@@ -73,7 +71,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun onClick(movie: Movie) {
-        requireContext().startActivity(DetailsActivity.newInstance(requireContext()))
+        if (movie.id == null) {
+            toast(getString(R.string.error_on_loading_screen_details))
+            return
+        }
+        goToDetails(movie)
+    }
+
+    override fun goToDetails(movie: Movie) {
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id!!))
     }
 
     companion object {

@@ -1,34 +1,23 @@
 <resources>
     <string name="app_name">Movies Brasil</string>
-    <string name="movies_popular">Filmes populares</string>
     <string name="title">título</string>
     <string name="vote">8.6</string>
-    <string name="movies_recent">Filmes recentes</string>
-    <string name="movies_top_rated">Os Mais Votados</string>
-    <string name="movies_now_playing">Estreia</string>
     <string name="banner">Banner</string>
     <string name="menu">Menu</string>
     <string name="search_movie">Buscar filme</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="banner_do_filme">Banner do filme</string>
     <string name="card_movie">Card do filme</string>
     <string name="home">Home</string>
     <string name="search">Buscar Filme</string>
     <string name="favorites">Favoritos</string>
 
-    <!-- Activity labels -->
-    <string name="title_activity_base">BaseActivity</string>
-    <string name="title_activity_details">BaseDetails</string>
-
-    <!-- Fragment labels -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="details">Detalhes</string>
+    <string name="error_on_loading_screen_details">Erro ao tentar carregar tela de detalhes</string>
+    <string name="title_activity_favorites">FavoritesActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="item_description">O confronto final entre as forças do bem e do mal que lutam pelo controle do futuro da Terra Média se aproxima. Sauron planeja um grande ataque a Minas Tirith, capital de Gondor, o que faz com que Gandalf e Pippin partam para o local na intenção de ajudar a resistência. Um exército é reunido por Theoden em Rohan, em mais uma tentativa de deter as forças de Sauron. Enquanto isso, Frodo, Sam e Gollum seguem sua viagem rumo à Montanha da Perdição para destruir o anel.</string>
+    <string name="favorite_movie">Favoritar filme</string>
 </resources>
