@@ -21,8 +21,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
 
     override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setUpViews() {
         init()
         setComponents()
         setProgressBar()

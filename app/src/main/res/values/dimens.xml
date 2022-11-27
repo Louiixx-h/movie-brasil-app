@@ -6,7 +6,7 @@
     <dimen name="text_32sp">32sp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_69dp">69dp</dimen>
-    <dimen name="image_40dp">40dp</dimen>
+    <dimen name="size_40dp">40dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
 </resources>
