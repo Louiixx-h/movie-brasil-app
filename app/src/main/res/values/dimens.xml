@@ -9,4 +9,8 @@
     <dimen name="size_40dp">40dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="text_18sp">18sp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
 </resources>

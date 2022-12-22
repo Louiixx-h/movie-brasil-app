@@ -6,16 +6,16 @@ import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
-import br.com.luishenrique.moviesbrasil.home.adapters.AdapterMovie
+import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
 import br.com.luishenrique.moviesbrasil.utils.toast
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, AdapterMovie.ListenerMovie {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
 
-    private val adapterMovie: AdapterMovie by lazy {
-        AdapterMovie(this)
+    private val adapterMovie: MovieAdapter by lazy {
+        MovieAdapter(this)
     }
     private val viewModel: HomeFragmentViewModel by lazy {
         ViewModelProvider(this)[HomeFragmentViewModel::class.java]
@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     override fun setMovies() {
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
             setBanner(responseMovie.results[0])
-            (binding.contentHome.rvMovies.adapter as AdapterMovie).movies = responseMovie.results
+            (binding.contentHome.rvMovies.adapter as MovieAdapter).movies = responseMovie.results
         }
     }
 

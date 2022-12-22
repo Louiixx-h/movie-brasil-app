@@ -67,7 +67,7 @@
                     android:maxLines="1"
                     android:text="@string/title"
                     android:textColor="@color/white"
-                    android:textSize="32sp"
+                    android:textSize="@dimen/text_24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_latest_movie"
                     app:layout_constraintLeft_toLeftOf="@+id/iv_thumbnail_latest_movie" />

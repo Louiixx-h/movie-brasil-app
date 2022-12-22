@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
@@ -24,14 +25,16 @@ class DetailsActivity : AppCompatActivity() {
         setFragment(DetailsFragment.newInstance(movieId!!))
     }
 
-    override fun onBackPressed() {
-        finish()
-    }
-
     private fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbarMain.toolbarTitle.text = getString(R.string.details)
+        binding.toolbarMain.toolbarMain.title = getString(R.string.details)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        binding.toolbarMain.toolbarMain.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
+        binding.toolbarMain.toolbarMain.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     private fun setFragment(fragment: Fragment) {

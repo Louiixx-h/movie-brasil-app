@@ -31,8 +31,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val title: TextView = toolbar.findViewById(R.id.toolbar_title)
-        title.text = getString(R.string.app_name)
+        toolbar.title = getString(R.string.app_name)
     }
 
     private fun setBottomNavigation() {

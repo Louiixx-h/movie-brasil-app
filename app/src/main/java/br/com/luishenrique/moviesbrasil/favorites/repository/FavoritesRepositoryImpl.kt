@@ -11,6 +11,6 @@ class FavoritesRepositoryImpl : FavoritesRepository {
     override fun getMovies(): List<MovieResponseVO> {
         val json = StorageImpl.getMovies
         val listType: Type = object : TypeToken<ArrayList<MovieResponseVO?>?>() {}.type
-        return Gson().fromJson(json, listType)
+        return Gson().fromJson(json, listType) ?: emptyList()
     }
 }
