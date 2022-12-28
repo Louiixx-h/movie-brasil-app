@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.home
 
+import android.widget.EditText
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 
 interface HomeFragmentContract {
@@ -9,4 +10,5 @@ interface HomeFragmentContract {
     fun setBanner(movie: Movie)
     fun setListMovies()
     fun goToDetails(movie: Movie)
+    fun EditText.setSearchInput()
 }

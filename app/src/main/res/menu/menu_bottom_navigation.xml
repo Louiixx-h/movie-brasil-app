@@ -6,11 +6,6 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/menuSearch"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/search" />
-
-    <item
         android:id="@+id/menuFavorites"
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/favorites" />

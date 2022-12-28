@@ -29,6 +29,8 @@
         android:layout_height="56dp"
         app:menu="@menu/menu_bottom_navigation"
         android:background="@color/gray_272727"
+        app:itemIconTint="@drawable/selector_bottom_navigation_icon"
+        app:itemTextColor="@drawable/selector_bottom_navigation_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

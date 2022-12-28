@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.home.repository.api
+package br.com.luishenrique.moviesbrasil.service.api
 
 import br.com.luishenrique.moviesbrasil.utils.BASE_URL
 import retrofit2.Retrofit

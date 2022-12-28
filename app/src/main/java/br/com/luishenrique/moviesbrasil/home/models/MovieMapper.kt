@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.home.models
 
+import br.com.luishenrique.moviesbrasil.home.models.responses.GenreResponseVO
 import br.com.luishenrique.moviesbrasil.home.models.responses.MovieResponseVO
 import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
 
@@ -16,6 +17,11 @@ object MovieMapper {
         title = movie.title,
         voteAverage = movie.voteAverage,
         posterPath = movie.posterPath,
-        backdropPath = movie.backdropPath
+        backdropPath = movie.backdropPath,
+        genres = getGenres(movie.genres),
     )
+
+    private fun getGenres(genres: List<GenreResponseVO>?) = genres?.map {
+        Genre(id = it.id, name = "")
+    }
 }

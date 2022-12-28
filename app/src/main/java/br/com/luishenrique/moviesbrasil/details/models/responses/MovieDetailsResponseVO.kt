@@ -15,7 +15,7 @@ data class MovieDetailsResponseVO (
     @SerializedName("id")
     val id: Long,
 
-    @SerializedName("original_title")
+    @SerializedName("title")
     val originalTitle: String,
 
     @SerializedName("overview")

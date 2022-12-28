@@ -12,9 +12,9 @@ import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
 import com.bumptech.glide.Glide
 
-class AdapterMovie(
+class MovieAdapter(
     private val listenerMovie: ListenerMovie
-): RecyclerView.Adapter<AdapterMovie.MovieViewHolder>() {
+): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     var movies: List<Movie> = listOf()
         set(value) {
@@ -26,18 +26,13 @@ class AdapterMovie(
         private val view: View
     ): RecyclerView.ViewHolder(view) {
 
-        private val title: TextView = itemView.findViewById(R.id.tv_title_item_movie)
-        private val voteAverage: TextView = itemView.findViewById(R.id.tv_vote_item_movie)
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail_item_movie)
 
         fun bind(movie: Movie) {
-            title.text = movie.title
-            voteAverage.text = movie.voteAverage
-
             setImage(
                 thumbnail,
                 view.context,
-                BASE_IMAGE + movie.backdropPath
+                BASE_IMAGE + movie.posterPath
             )
 
             view.setOnClickListener { listenerMovie.onClick(movie) }

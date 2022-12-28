@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentDetailsBinding
+import br.com.luishenrique.moviesbrasil.details.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.getRating
@@ -18,11 +19,13 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
     private val viewModel: DetailsViewModel by lazy {
         ViewModelProvider(this)[DetailsViewModel::class.java]
     }
+    private val genreAdapter: GenreAdapter by lazy {
+        GenreAdapter()
+    }
 
     override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setUpViews() {
         init()
         setComponents()
         setProgressBar()
@@ -48,7 +51,10 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         setImage(binding.ivPoster, BASE_IMAGE + movieDetail.backdropPath)
         binding.tvTitle.text = movieDetail.originalTitle
         binding.overview.text = movieDetail.overview
-        binding.ratingStar.rating = movieDetail.voteAverage?.getRating() ?: 0f
+        binding.ratingStar.rating = movieDetail.voteAverage?.toFloat()?.div(2) ?: 0f
+
+        genreAdapter.items = movieDetail.genres ?: emptyList()
+        binding.rvGenres.adapter = genreAdapter
     }
 
     private fun changeVisibilityProgressBar(stateProgressBar: Boolean) {

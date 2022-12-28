@@ -3,7 +3,6 @@ package br.com.luishenrique.moviesbrasil.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -31,8 +30,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val title: TextView = toolbar.findViewById(R.id.toolbar_title)
-        title.text = getString(R.string.app_name)
+        toolbar.title = getString(R.string.app_name)
     }
 
     private fun setBottomNavigation() {
@@ -51,13 +49,12 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.menuHome -> {
                 setFragment(HomeFragment.newInstance())
             }
-            R.id.menuSearch -> {
-                setFragment(SearchFragment.newInstance())
-            }
             R.id.menuFavorites -> {
                 setFragment(FavoritesFragment.newInstance())
             }
         }
         return false
     }
+
+    override fun onBackPressed() = Unit
 }

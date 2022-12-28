@@ -6,7 +6,17 @@
     <dimen name="text_32sp">32sp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_69dp">69dp</dimen>
-    <dimen name="image_40dp">40dp</dimen>
+    <dimen name="size_40dp">40dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="text_18sp">18sp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="height_56dp">56dp</dimen>
+    <dimen name="width_2dp">2dp</dimen>
+    <dimen name="radius_16dp">16dp</dimen>
+    <dimen name="radius_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="width_1dp">1dp</dimen>
 </resources>

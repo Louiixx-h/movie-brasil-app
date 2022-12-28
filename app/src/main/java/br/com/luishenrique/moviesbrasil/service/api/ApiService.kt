@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.home.repository.api
+package br.com.luishenrique.moviesbrasil.service.api
 
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
 import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
@@ -24,9 +24,25 @@ interface ApiService {
         @Query("page") page: Int = 1
     ): Response<MovieDetailsResponseVO>
 
+    @GET(MOVIE_SEARCH)
+    suspend fun searchByTitle(
+        @Query("api_key") key: String = KEY_USER,
+        @Query("language") language: String = LANGUAGE,
+        @Query("query") query: String,
+        @Query("include_adult") adult: Boolean = false,
+    ): Response<ResultMovieResponseVO>
+
+    @GET(MOVIE_GENRES)
+    suspend fun getGenres(
+        @Query("api_key") key: String = KEY_USER,
+        @Query("language") language: String = LANGUAGE,
+    ): Response<ResultMovieResponseVO>
+
     companion object {
         const val MOVIE_POPULAR = "movie/popular"
         const val MOVIE_DETAILS = "movie/{movie_id}"
+        const val MOVIE_SEARCH = "search/movie"
+        const val MOVIE_GENRES = "genre/movie/list"
 
         const val KEY_USER = "86ef71989f8c4a9a7cc321d7a0f6a528"
         const val LANGUAGE = "en-US"
