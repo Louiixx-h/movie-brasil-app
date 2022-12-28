@@ -51,7 +51,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>() {
         setImage(binding.ivPoster, BASE_IMAGE + movieDetail.backdropPath)
         binding.tvTitle.text = movieDetail.originalTitle
         binding.overview.text = movieDetail.overview
-        binding.ratingStar.rating = movieDetail.voteAverage?.getRating() ?: 0f
+        binding.ratingStar.rating = movieDetail.voteAverage?.toFloat()?.div(2) ?: 0f
 
         genreAdapter.items = movieDetail.genres ?: emptyList()
         binding.rvGenres.adapter = genreAdapter

@@ -6,7 +6,7 @@
     android:layout_marginEnd="@dimen/margin_4dp"
     android:padding="@dimen/padding_8dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_outlined">
+    android:background="@drawable/bg_outlined_filled">
 
     <TextView
         android:id="@+id/name_genre"

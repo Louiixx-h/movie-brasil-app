@@ -5,7 +5,7 @@
     android:id="@+id/toolbar_main"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
-    android:background="@color/primary_color"
+    android:background="@color/gray_272727"
     app:titleTextAppearance="@style/Toolbar.TitleText"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:title="Details"

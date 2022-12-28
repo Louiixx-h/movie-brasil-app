@@ -25,15 +25,26 @@ class DetailsActivity : AppCompatActivity() {
         setFragment(DetailsFragment.newInstance(movieId!!))
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbarMain.toolbarMain.title = getString(R.string.details)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        binding.toolbarMain.toolbarMain.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
-        binding.toolbarMain.toolbarMain.setNavigationOnClickListener {
-            finish()
+
+        with(binding.toolbarMain.toolbarMain) {
+            this.title = getString(R.string.details)
+            this.navigationIcon = ContextCompat.getDrawable(
+                this@DetailsActivity,
+                R.drawable.ic_baseline_arrow_back_24
+            )
+            this.setNavigationOnClickListener {
+                finish()
+            }
         }
     }
 

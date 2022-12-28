@@ -22,4 +22,5 @@
     <string name="favorite_movie">Favoritar filme</string>
     <string name="remove_movie">Remover filme</string>
     <string name="overview">Resumo:</string>
+    <string name="search_field">Search...</string>
 </resources>

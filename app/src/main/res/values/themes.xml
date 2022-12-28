@@ -3,7 +3,7 @@
     <style name="Theme.MoviesBrasil" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_color</item>
-        <item name="colorPrimaryVariant">@color/dark_color</item>
+        <item name="colorPrimaryVariant">@color/black_151515</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary_light_color</item>
