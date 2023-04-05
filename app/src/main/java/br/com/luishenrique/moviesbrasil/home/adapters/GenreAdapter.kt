@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.home.models.Genre
 
 class GenreAdapter : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
 
-    var items: List<Genre> = emptyList()
+    var items: List<Int> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -19,8 +18,8 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameGenre: TextView = view.findViewById(R.id.name_genre)
 
-        fun bind(genre: Genre) {
-            nameGenre.text = genre.name
+        fun bind(id: Int) {
+            nameGenre.text = id.toString()
         }
     }
 

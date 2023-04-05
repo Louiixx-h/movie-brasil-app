@@ -17,7 +17,6 @@ import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
-import br.com.luishenrique.moviesbrasil.utils.toast
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
 
@@ -53,6 +52,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     override fun setBanner(movie: Movie) {
         binding.ivThumbnailLatestMovie.visibility = View.VISIBLE
         binding.tvTitleMovieLatest.text = movie.title
+        binding.rvGenres.adapter = genreAdapter
+        genreAdapter.items = movie.genres
 
         setImage(
             binding.ivThumbnailLatestMovie,
@@ -63,12 +64,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setMovies() {
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
-            val firstMovie = responseMovie.results[0]
+            setBanner(responseMovie.results[0])
             (binding.contentHome.rvMovies.adapter as MovieAdapter).movies = responseMovie.results
-            setBanner(firstMovie)
-
-            genreAdapter.items = firstMovie.genres ?: emptyList()
-            binding.rvGenres.adapter = genreAdapter
         }
 
         viewModel.movieFromSearch.observe(requireActivity()) { responseMovie ->
@@ -141,15 +138,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun onClick(movie: Movie) {
-        if (movie.id == null) {
-            toast(getString(R.string.error_on_loading_screen_details))
-            return
-        }
         goToDetails(movie)
     }
 
     override fun goToDetails(movie: Movie) {
-        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id!!))
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
     }
 
     companion object {
