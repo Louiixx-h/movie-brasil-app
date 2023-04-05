@@ -27,7 +27,8 @@ class HomeFragmentViewModel: ViewModel() {
                 val response = repository.getMovies()
 
                 if (response.isSuccessful && response.body() != null) {
-                    _moviePopularList.value = MovieMapper.transform(response.body()!!)
+                    val movies = MovieMapper.transform(response.body()!!)
+                    _moviePopularList.value = movies
                 }
 
                 _progressBar.postValue(false)
