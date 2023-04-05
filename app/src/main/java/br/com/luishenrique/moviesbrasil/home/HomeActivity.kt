@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.favorites.FavoritesFragment
-import br.com.luishenrique.moviesbrasil.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
