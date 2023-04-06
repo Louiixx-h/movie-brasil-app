@@ -3,16 +3,15 @@ package br.com.luishenrique.moviesbrasil.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.favorites.FavoritesFragment
-import br.com.luishenrique.moviesbrasil.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : AppCompatActivity(), HomeActivityContract, NavigationBarView.OnItemSelectedListener {
 
     private lateinit var bottomNavigation: BottomNavigationView
 
@@ -27,19 +26,18 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setFragment(HomeFragment.newInstance())
     }
 
-    private fun setToolbar() {
+    override fun setToolbar() {
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val title: TextView = toolbar.findViewById(R.id.toolbar_title)
-        title.text = getString(R.string.app_name)
+        toolbar.title = getString(R.string.app_name)
     }
 
-    private fun setBottomNavigation() {
-        bottomNavigation.setOnNavigationItemSelectedListener(this)
+    override fun setBottomNavigation() {
+        bottomNavigation.setOnItemSelectedListener(this)
     }
 
-    private fun setFragment(fragment: Fragment) {
+    override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
             replace(R.id.homeFragmentContainer, fragment, "home")
@@ -50,9 +48,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when(item.itemId) {
             R.id.menuHome -> {
                 setFragment(HomeFragment.newInstance())
-            }
-            R.id.menuSearch -> {
-                setFragment(SearchFragment.newInstance())
             }
             R.id.menuFavorites -> {
                 setFragment(FavoritesFragment.newInstance())

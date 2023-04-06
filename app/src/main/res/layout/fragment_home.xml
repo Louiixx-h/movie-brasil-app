@@ -40,7 +40,7 @@
                 <ImageView
                     android:id="@+id/iv_thumbnail_latest_movie"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="380dp"
                     android:contentDescription="@string/banner"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -63,13 +63,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
                     android:maxLines="1"
                     android:text="@string/title"
                     android:textColor="@color/white"
-                    android:textSize="32sp"
+                    android:textSize="@dimen/text_24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_latest_movie"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@+id/iv_thumbnail_latest_movie" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -82,6 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/primary_color"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="bottom|center"
         tools:visibility="visible"/>

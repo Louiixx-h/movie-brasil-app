@@ -1,24 +1,29 @@
 package br.com.luishenrique.moviesbrasil.home
 
+import android.annotation.SuppressLint
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
-import br.com.luishenrique.moviesbrasil.home.adapters.AdapterMovie
+import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
-import br.com.luishenrique.moviesbrasil.utils.toast
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, AdapterMovie.ListenerMovie {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
 
-    private val adapterMovie: AdapterMovie by lazy {
-        AdapterMovie(this)
+    private val adapterMovie: MovieAdapter by lazy {
+        MovieAdapter(this)
     }
     private val viewModel: HomeFragmentViewModel by lazy {
-        ViewModelProvider(this)[HomeFragmentViewModel::class.java]
+        ViewModelProvider(this)[HomeFragmentViewModelImpl::class.java]
     }
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
@@ -28,7 +33,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun initView() {
-        viewModel.getMoviesPopular()
+        viewModel.getMovies()
+        binding.contentHome.searchMovie.setSearchInput()
 
         setListMovies()
         setProgressBar()
@@ -40,6 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun setBanner(movie: Movie) {
+        binding.ivThumbnailLatestMovie.visibility = View.VISIBLE
         binding.tvTitleMovieLatest.text = movie.title
 
         setImage(
@@ -52,8 +59,62 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     override fun setMovies() {
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
             setBanner(responseMovie.results[0])
-            (binding.contentHome.rvMovies.adapter as AdapterMovie).movies = responseMovie.results
+            (binding.contentHome.rvMovies.adapter as MovieAdapter).movies = responseMovie.results
         }
+
+        viewModel.movieFromSearch.observe(requireActivity()) { responseMovie ->
+            (binding.contentHome.rvMovies.adapter as MovieAdapter).movies = responseMovie.results
+
+            binding.ivThumbnailLatestMovie.setImageDrawable(null)
+            binding.ivThumbnailLatestMovie.visibility = View.GONE
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun EditText.setSearchInput() {
+        this.setOnTouchListener { _, event ->
+            val drawableRight = 2
+            val rightPosition = this.right
+            val width = this.compoundDrawables[drawableRight].bounds.width()
+
+            if(event.action == MotionEvent.ACTION_UP) {
+                if(event.rawX >= (rightPosition - width)) {
+                    if(this.text.toString().isNotBlank()) {
+                        this.text.clear()
+                    }
+                }
+            }
+            false
+        }
+
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s.isNullOrEmpty()) {
+                    this@setSearchInput.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_search_24),
+                        null
+                    )
+                } else {
+                    this@setSearchInput.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_cancel_24),
+                        null
+                    )
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val text = this@setSearchInput.text.toString()
+                viewModel.searchMovie(text.replace(" ", "+"))
+            }
+        })
     }
 
     override fun setProgressBar() {
@@ -71,15 +132,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun onClick(movie: Movie) {
-        if (movie.id == null) {
-            toast(getString(R.string.error_on_loading_screen_details))
-            return
-        }
         goToDetails(movie)
     }
 
     override fun goToDetails(movie: Movie) {
-        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id!!))
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
     }
 
     companion object {

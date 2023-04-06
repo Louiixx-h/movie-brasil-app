@@ -3,13 +3,15 @@ package br.com.luishenrique.moviesbrasil.details
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.databinding.ActivityDetailsBinding
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
 
     private val movieId: Int? by lazy { intent.extras?.getInt(DETAILS_ID) }
     private lateinit var binding: ActivityDetailsBinding
@@ -22,19 +24,31 @@ class DetailsActivity : AppCompatActivity() {
 
         setToolbar()
         setFragment(DetailsFragment.newInstance(movieId!!))
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+        }
     }
 
-    override fun onBackPressed() {
-        finish()
-    }
-
-    private fun setToolbar() {
+    override fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbarMain.toolbarTitle.text = getString(R.string.details)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        with(binding.toolbarMain.toolbarMain) {
+            this.title = getString(R.string.details)
+            this.navigationIcon = ContextCompat.getDrawable(
+                this@DetailsActivity,
+                R.drawable.ic_baseline_arrow_back_24
+            )
+            this.setNavigationOnClickListener {
+                finish()
+            }
+        }
     }
 
-    private fun setFragment(fragment: Fragment) {
+    override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
             replace(R.id.homeFragmentContainer, fragment, "details")

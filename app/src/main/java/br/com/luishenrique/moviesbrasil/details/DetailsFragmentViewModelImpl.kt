@@ -12,17 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailsViewModel: ViewModel() {
+class DetailsFragmentViewModelImpl: ViewModel(), DetailsFragmentViewModel {
 
     private val repository: DetailsRepository = DetailsRepositoryImpl()
 
     private val _progressBar = MutableLiveData<Boolean>()
-    val progressBar: LiveData<Boolean> = _progressBar
+    override val progressBar: LiveData<Boolean> = _progressBar
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
-    val movieDetail: LiveData<MovieDetail> = _movieDetail
+    override val movieDetail: LiveData<MovieDetail> = _movieDetail
 
-    fun getDetails(movieId: Int) {
+    override fun getDetails(movieId: Int) {
         _progressBar.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
