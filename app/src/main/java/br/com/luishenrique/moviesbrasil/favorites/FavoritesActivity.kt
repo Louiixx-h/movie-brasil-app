@@ -9,7 +9,7 @@ import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.databinding.ActivityFavoritesBinding
 
-class FavoritesActivity : AppCompatActivity() {
+class FavoritesActivity : AppCompatActivity(), FavoritesActivityContract {
 
     private lateinit var binding: ActivityFavoritesBinding
 
@@ -23,13 +23,13 @@ class FavoritesActivity : AppCompatActivity() {
         setFragment(FavoritesFragment.newInstance())
     }
 
-    private fun setToolbar() {
+    override fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbarMain.toolbarMain.title = getString(R.string.favorites)
     }
 
-    private fun setFragment(fragment: Fragment) {
+    override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
             replace(R.id.homeFragmentContainer, fragment, "favorites")
