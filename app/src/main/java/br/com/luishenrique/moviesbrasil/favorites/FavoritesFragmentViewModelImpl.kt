@@ -12,17 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FavoritesViewModel: ViewModel() {
+class FavoritesFragmentViewModelImpl: ViewModel(), FavoritesFragmentViewModel {
 
     private val repository: FavoritesRepository = FavoritesRepositoryImpl()
 
     private val _progressBar = MutableLiveData<Boolean>()
-    val progressBar: LiveData<Boolean> = _progressBar
+    override val progressBar: LiveData<Boolean> = _progressBar
 
     private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> = _movies
+    override val movies: LiveData<List<Movie>> = _movies
 
-    fun getMovies() {
+    override fun getMovies() {
         _progressBar.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
