@@ -69,21 +69,8 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_24sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/rv_genres"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="@+id/iv_thumbnail_latest_movie" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_genres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_latest_movie"
-                    app:layout_constraintLeft_toLeftOf="@+id/iv_thumbnail_latest_movie"
-                    tools:itemCount="3"
-                    tools:listitem="@layout/item_genre" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

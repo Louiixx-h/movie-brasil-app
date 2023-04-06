@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.details.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import br.com.luishenrique.moviesbrasil.details.models.Genre
 class GenreAdapter : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
 
     var items: List<Genre> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

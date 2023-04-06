@@ -12,7 +12,6 @@ import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
-import br.com.luishenrique.moviesbrasil.home.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
@@ -24,10 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         MovieAdapter(this)
     }
     private val viewModel: HomeFragmentViewModel by lazy {
-        ViewModelProvider(this)[HomeFragmentViewModel::class.java]
-    }
-    private val genreAdapter: GenreAdapter by lazy {
-        GenreAdapter()
+        ViewModelProvider(this)[HomeFragmentViewModelImpl::class.java]
     }
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
@@ -52,8 +48,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     override fun setBanner(movie: Movie) {
         binding.ivThumbnailLatestMovie.visibility = View.VISIBLE
         binding.tvTitleMovieLatest.text = movie.title
-        binding.rvGenres.adapter = genreAdapter
-        genreAdapter.items = movie.genres
 
         setImage(
             binding.ivThumbnailLatestMovie,
