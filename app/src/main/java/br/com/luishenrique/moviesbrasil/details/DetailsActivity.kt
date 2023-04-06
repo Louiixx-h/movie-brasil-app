@@ -10,7 +10,7 @@ import androidx.fragment.app.commit
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.databinding.ActivityDetailsBinding
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
 
     private val movieId: Int? by lazy { intent.extras?.getInt(DETAILS_ID) }
     private lateinit var binding: ActivityDetailsBinding
@@ -30,7 +30,7 @@ class DetailsActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun setToolbar() {
+    override fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -48,7 +48,7 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setFragment(fragment: Fragment) {
+    override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
             replace(R.id.homeFragmentContainer, fragment, "details")
