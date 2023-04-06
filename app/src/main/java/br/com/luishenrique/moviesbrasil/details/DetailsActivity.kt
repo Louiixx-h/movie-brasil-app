@@ -3,6 +3,7 @@ package br.com.luishenrique.moviesbrasil.details
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -23,11 +24,10 @@ class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
 
         setToolbar()
         setFragment(DetailsFragment.newInstance(movieId!!))
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+        }
     }
 
     override fun setToolbar() {
