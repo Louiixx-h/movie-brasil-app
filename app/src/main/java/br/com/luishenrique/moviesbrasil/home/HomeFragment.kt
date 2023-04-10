@@ -7,29 +7,21 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
-import br.com.luishenrique.moviesbrasil.home.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
-import br.com.luishenrique.moviesbrasil.utils.toast
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
 
-    private val adapterMovie: MovieAdapter by lazy {
-        MovieAdapter(this)
-    }
-    private val viewModel: HomeFragmentViewModel by lazy {
-        ViewModelProvider(this)[HomeFragmentViewModel::class.java]
-    }
-    private val genreAdapter: GenreAdapter by lazy {
-        GenreAdapter()
-    }
+    private val adapterMovie: MovieAdapter by inject { parametersOf(this) }
+    private val viewModel: HomeFragmentViewModelImpl by inject()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
@@ -63,12 +55,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setMovies() {
         viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
-            val firstMovie = responseMovie.results[0]
+            setBanner(responseMovie.results[0])
             (binding.contentHome.rvMovies.adapter as MovieAdapter).movies = responseMovie.results
-            setBanner(firstMovie)
-
-            genreAdapter.items = firstMovie.genres ?: emptyList()
-            binding.rvGenres.adapter = genreAdapter
         }
 
         viewModel.movieFromSearch.observe(requireActivity()) { responseMovie ->
@@ -141,15 +129,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun onClick(movie: Movie) {
-        if (movie.id == null) {
-            toast(getString(R.string.error_on_loading_screen_details))
-            return
-        }
         goToDetails(movie)
     }
 
     override fun goToDetails(movie: Movie) {
-        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id!!))
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
     }
 
     companion object {

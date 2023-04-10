@@ -1,12 +1,12 @@
 package br.com.luishenrique.moviesbrasil.details.repository
 
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
-import br.com.luishenrique.moviesbrasil.service.api.MovieService
+import br.com.luishenrique.moviesbrasil.service.api.ApiService
 import retrofit2.Response
 
-class DetailsRepositoryImpl : DetailsRepository {
+class DetailsRepositoryImpl(private val service: ApiService): DetailsRepository {
 
     override suspend fun getDetails(movieId: Int): Response<MovieDetailsResponseVO> {
-        return MovieService.getInstance().getMovieDetail(movieId)
+        return service.getMovieDetail(movieId)
     }
 }
