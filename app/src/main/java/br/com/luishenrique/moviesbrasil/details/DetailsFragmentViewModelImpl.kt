@@ -7,14 +7,13 @@ import androidx.lifecycle.viewModelScope
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetailsMapper
 import br.com.luishenrique.moviesbrasil.details.repository.DetailsRepository
-import br.com.luishenrique.moviesbrasil.details.repository.DetailsRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailsFragmentViewModelImpl: ViewModel(), DetailsFragmentViewModel {
-
-    private val repository: DetailsRepository = DetailsRepositoryImpl()
+class DetailsFragmentViewModelImpl(
+    private val repository: DetailsRepository
+): ViewModel(), DetailsFragmentViewModel {
 
     private val _progressBar = MutableLiveData<Boolean>()
     override val progressBar: LiveData<Boolean> = _progressBar

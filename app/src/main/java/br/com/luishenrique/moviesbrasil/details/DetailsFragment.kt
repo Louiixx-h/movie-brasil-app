@@ -2,25 +2,19 @@ package br.com.luishenrique.moviesbrasil.details
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentDetailsBinding
 import br.com.luishenrique.moviesbrasil.details.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
+import org.koin.android.ext.android.inject
 
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), DetailsFragmentContract {
 
-    private val movieId: Int? by lazy {
-        arguments?.getInt(DetailsActivity.DETAILS_ID)
-    }
-    private val viewModel: DetailsFragmentViewModel by lazy {
-        ViewModelProvider(this)[DetailsFragmentViewModelImpl::class.java]
-    }
-    private val genreAdapter: GenreAdapter by lazy {
-        GenreAdapter()
-    }
+    private val viewModel: DetailsFragmentViewModelImpl by inject()
+    private val genreAdapter: GenreAdapter by inject()
+    private val movieId: Int? by lazy { arguments?.getInt(DetailsActivity.DETAILS_ID) }
 
     override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
