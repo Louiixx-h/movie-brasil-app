@@ -4,13 +4,13 @@ import androidx.lifecycle.*
 import br.com.luishenrique.moviesbrasil.home.models.MovieMapper
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
 import br.com.luishenrique.moviesbrasil.home.repository.HomeRepository
-import br.com.luishenrique.moviesbrasil.home.repository.HomeRepositoryImpl
 import kotlinx.coroutines.*
 
-class HomeFragmentViewModelImpl: ViewModel(), HomeFragmentViewModel {
+class HomeFragmentViewModelImpl(
+    private val repository: HomeRepository
+) : ViewModel(), HomeFragmentViewModel {
 
     private var job: Job? = null
-    private val repository: HomeRepository = HomeRepositoryImpl()
 
     private val _progressBar = MutableLiveData<Boolean>()
     override val progressBar: LiveData<Boolean> = _progressBar

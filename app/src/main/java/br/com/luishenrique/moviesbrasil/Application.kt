@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil
 
+import br.com.luishenrique.moviesbrasil.details.di.details
 import br.com.luishenrique.moviesbrasil.favorites.service.StorageImpl
 import br.com.luishenrique.moviesbrasil.home.di.homeModule
 import br.com.luishenrique.moviesbrasil.service.api.di.serviceModule
@@ -24,5 +25,6 @@ class Application : android.app.Application() {
     private fun appModule() = listOf(
         serviceModule,
         homeModule,
+        details,
     )
 }
