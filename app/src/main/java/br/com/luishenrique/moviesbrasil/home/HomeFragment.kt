@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
@@ -16,15 +15,13 @@ import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
 
-    private val adapterMovie: MovieAdapter by lazy {
-        MovieAdapter(this)
-    }
-    private val viewModel: HomeFragmentViewModel by lazy {
-        ViewModelProvider(this)[HomeFragmentViewModelImpl::class.java]
-    }
+    private val adapterMovie: MovieAdapter by inject { parametersOf(this) }
+    private val viewModel: HomeFragmentViewModelImpl by inject()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
