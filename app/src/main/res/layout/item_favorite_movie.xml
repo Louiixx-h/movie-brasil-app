@@ -36,20 +36,9 @@
         android:maxLines="1"
         android:text="@string/title"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_24sp"
+        android:textSize="@dimen/text_16sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card_movie"/>
 
-    <ImageView
-        android:id="@+id/button_favorite"
-        android:layout_width="@dimen/size_40dp"
-        android:layout_height="@dimen/size_40dp"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
-        android:src="@drawable/ic_baseline_favorite_24"
-        android:contentDescription="@string/remove_movie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/primary_color" />
 </androidx.constraintlayout.widget.ConstraintLayout>
