@@ -26,7 +26,18 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         setProgressBar()
     }
 
-    override fun init() {
+    private fun setupToolbar() {
+        with((requireActivity() as AppCompatActivity)) {
+            val toolbar: Toolbar  = findViewById(R.id.toolbar_main)
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            toolbar.title = getString(R.string.favorites)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getMovies()
     }
 
