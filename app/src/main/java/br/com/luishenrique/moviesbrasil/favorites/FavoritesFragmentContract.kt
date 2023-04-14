@@ -1,12 +1,13 @@
 package br.com.luishenrique.moviesbrasil.favorites
 
-import br.com.luishenrique.moviesbrasil.home.models.Movie
+import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 
 interface FavoritesFragmentContract {
-    fun init()
-    fun goToDetails(movie: Movie)
     fun changeVisibilityProgressBar(stateProgressBar: Boolean)
-    fun renderMovies(movie: List<Movie>)
     fun setProgressBar()
     fun setComponents()
+    fun removeMovie(movie: MovieDetail)
+    fun goToDetails(movie: MovieDetail)
+    fun onClick(movie: MovieDetail)
+    fun renderMovies(movie: List<MovieDetail>)
 }

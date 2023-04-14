@@ -1,32 +1,43 @@
 package br.com.luishenrique.moviesbrasil.favorites
 
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.base.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentFavoritesBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
+import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.favorites.adapters.AdapterFavoritesMovie
-import br.com.luishenrique.moviesbrasil.home.models.Movie
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
     AdapterFavoritesMovie.ListenerMovie, FavoritesFragmentContract {
 
-    private val adapterMovie: AdapterFavoritesMovie by lazy {
-        AdapterFavoritesMovie(this)
-    }
-    private val viewModel: FavoritesFragmentViewModelImpl by lazy {
-        ViewModelProvider(this)[FavoritesFragmentViewModelImpl::class.java]
-    }
+    private val adapterMovie: AdapterFavoritesMovie by inject { parametersOf(this) }
+    private val viewModel: FavoritesFragmentViewModelImpl by inject()
 
     override fun getViewBinding() = FragmentFavoritesBinding.inflate(layoutInflater)
 
     override fun setUpViews() {
-        init()
+        setupToolbar()
         setComponents()
         setProgressBar()
     }
 
-    override fun init() {
+    private fun setupToolbar() {
+        with((requireActivity() as AppCompatActivity)) {
+            val toolbar: Toolbar  = findViewById(R.id.toolbar_main)
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            toolbar.title = getString(R.string.favorites)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getMovies()
     }
 
@@ -42,7 +53,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         }
     }
 
-    override fun renderMovies(movie: List<Movie>) {
+    override fun renderMovies(movie: List<MovieDetail>) {
         adapterMovie.movies = movie
         binding.rvFavorites.adapter = adapterMovie
     }
@@ -55,15 +66,15 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         }
     }
 
-    override fun onClick(movie: Movie) {
+    override fun onClick(movie: MovieDetail) {
         goToDetails(movie)
     }
 
-    override fun goToDetails(movie: Movie) {
-        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
+    override fun goToDetails(movie: MovieDetail) {
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id.toInt()))
     }
 
-    override fun removeMovie(movie: Movie) {
+    override fun removeMovie(movie: MovieDetail) {
 
     }
 

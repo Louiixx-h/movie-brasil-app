@@ -1,16 +1,16 @@
 package br.com.luishenrique.moviesbrasil.home.repository
 
 import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
-import br.com.luishenrique.moviesbrasil.service.api.MovieService
+import br.com.luishenrique.moviesbrasil.service.api.ApiService
 import retrofit2.Response
 
-class HomeRepositoryImpl : HomeRepository {
+class HomeRepositoryImpl(private val service: ApiService) : HomeRepository {
 
     override suspend fun getMovies(): Response<ResultMovieResponseVO> {
-        return MovieService.getInstance().getMoviesPopular()
+        return service.getMoviesPopular()
     }
 
     override suspend fun searchMovie(title: String): Response<ResultMovieResponseVO> {
-        return MovieService.getInstance().searchByTitle(query = title)
+        return service.searchByTitle(query = title)
     }
 }
