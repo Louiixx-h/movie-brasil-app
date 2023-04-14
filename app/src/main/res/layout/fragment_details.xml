@@ -51,6 +51,21 @@
                 app:layout_constraintBottom_toBottomOf="@+id/iv_poster"
                 app:layout_constraintLeft_toLeftOf="@+id/iv_poster" />
 
+            <ImageView
+                android:id="@+id/img_add_my_list"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_16dp"
+                android:maxLines="1"
+                android:text="@string/title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_24sp"
+                android:textStyle="bold"
+                android:src="@drawable/baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_poster"
+                app:layout_constraintRight_toRightOf="@+id/iv_poster" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
