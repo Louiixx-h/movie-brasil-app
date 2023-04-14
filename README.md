@@ -15,3 +15,8 @@ App android de listagem de filmes.
 <div>
 <img src="./images/search.png" width="200"/>
 </div>
+
+## Favorites
+<div>
+<img src="./images/favorites.png" width="200"/>
+</div>
