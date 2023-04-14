@@ -9,6 +9,6 @@ import org.koin.dsl.module
 
 val details = module {
     factory { GenreAdapter() }
-    factory<DetailsRepository> { DetailsRepositoryImpl(get()) }
-    viewModel { DetailsFragmentViewModelImpl(get()) }
+    factory<DetailsRepository> { DetailsRepositoryImpl(get(), get()) }
+    viewModel { DetailsFragmentViewModelImpl(get<DetailsRepository>()) }
 }
