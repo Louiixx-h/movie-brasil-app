@@ -48,6 +48,7 @@
   <img src="./images/search.png" height="400"/>
   <img src="./images/favorites.png" height="400"/>
 </div>
+
 ### Built With
 
 * Kotlin
