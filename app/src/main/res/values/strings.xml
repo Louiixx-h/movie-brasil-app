@@ -24,4 +24,6 @@
     <string name="overview">Resumo:</string>
     <string name="search_field">Search...</string>
     <string name="unable_to_add_the_favorite_list">Nâo foi possível adicionar o filme á lista de favoritos!</string>
+    <string name="unable_to_load_movies">Não foi possível carregar os filmes</string>
+    <string name="try_again">Tentar novamente</string>
 </resources>
