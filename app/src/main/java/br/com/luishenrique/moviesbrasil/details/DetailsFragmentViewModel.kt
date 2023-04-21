@@ -2,14 +2,17 @@ package br.com.luishenrique.moviesbrasil.details
 
 import androidx.lifecycle.LiveData
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
+import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
 
 interface DetailsFragmentViewModel {
-    val progressBar: LiveData<Boolean>
-    val movieDetail: LiveData<MovieDetail>
+    val command: LiveData<ResourceDetails<MovieDetail>>
 
     fun getDetails(movieId: Int)
-    fun addMovieToFavorites()
-    val isFavorite: LiveData<Boolean>
+    fun onSuccessGetMovie(response: ResourceDetails<MovieDetailsResponseVO>)
+    fun onErrorGetMovie(exception: Exception)
+    fun onLoading(value: Boolean)
     fun clickOnFavorite()
+    fun addMovieToFavorites()
     fun removeMovieToFavorites()
+    fun movieIsSaved()
 }

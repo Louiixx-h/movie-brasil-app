@@ -3,6 +3,7 @@ package br.com.luishenrique.moviesbrasil
 import br.com.luishenrique.moviesbrasil.details.di.details
 import br.com.luishenrique.moviesbrasil.favorites.di.favorites
 import br.com.luishenrique.moviesbrasil.home.di.homeModule
+import br.com.luishenrique.moviesbrasil.network.di.network
 import br.com.luishenrique.moviesbrasil.service.di.serviceModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -24,6 +25,7 @@ class Application : android.app.Application() {
         serviceModule,
         homeModule,
         details,
-        favorites
+        favorites,
+        network
     )
 }

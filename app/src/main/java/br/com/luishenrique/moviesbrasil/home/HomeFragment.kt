@@ -1,22 +1,19 @@
 package br.com.luishenrique.moviesbrasil.home
 
 import android.graphics.drawable.Drawable
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.MotionEvent
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.base.BaseFragment
+import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
-import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
-import br.com.luishenrique.moviesbrasil.utils.setImage
+import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
+import br.com.luishenrique.moviesbrasil.utils.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -28,11 +25,57 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun setUpViews() {
-        initView()
+        viewModel.getMovies()
+        binding.contentHome.searchMovie.setSearchInput()
+
         setupToolbar()
+        setupListMovies()
+        setupObserver()
     }
 
-    private fun setupToolbar() {
+    override fun setupObserver() {
+        viewModel.command.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ResourceHome.Success -> {
+                    handleSuccess(response.data)
+                }
+                is ResourceHome.SearchSuccess -> {
+                    handleSearchSuccess(response.data)
+                }
+                is ResourceHome.Error -> {
+                    errorScreen()
+                }
+                is ResourceHome.Loading -> {
+                    handleLoading(response.value ?: false)
+                }
+            }
+        }
+    }
+
+    override fun handleSuccess(resultMovie: ResultMovie?) {
+        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
+    }
+
+    override fun handleSearchSuccess(resultMovie: ResultMovie?) {
+        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
+        binding.ivThumbnailLatestMovie.setImageDrawable(null)
+        binding.ivThumbnailLatestMovie.isVisible = false
+        binding.tvTitleMovieLatest.isVisible = false
+    }
+
+    override fun handleLoading(stateProgressBar: Boolean) {
+        binding.progressBar.isVisible = stateProgressBar
+    }
+
+    override fun setupMovies(firstMovie: Movie?, movies: List<Movie>) {
+        if(firstMovie !== null) {
+            setupBanner(firstMovie)
+        }
+
+        adapterMovie.movies = movies
+    }
+
+    override fun setupToolbar() {
         with((requireActivity() as AppCompatActivity)) {
             val toolbar: Toolbar = findViewById(R.id.toolbar_main)
             setSupportActionBar(toolbar)
@@ -42,20 +85,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         }
     }
 
-    override fun initView() {
-        viewModel.getMovies()
-        binding.contentHome.searchMovie.setSearchInput()
-
-        setListMovies()
-        setProgressBar()
-        setMovies()
-    }
-
-    override fun setListMovies() {
+    override fun setupListMovies() {
         binding.contentHome.rvMovies.adapter = adapterMovie
     }
 
-    override fun setBanner(movie: Movie) {
+    override fun setupBanner(movie: Movie) {
         binding.ivThumbnailLatestMovie.isVisible = true
         binding.tvTitleMovieLatest.isVisible = true
 
@@ -67,52 +101,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         )
     }
 
-
-    override fun setMovies() {
-        viewModel.moviePopularList.observe(requireActivity()) { responseMovie ->
-            setBanner(responseMovie.results[FIRST_MOVIE])
-            adapterMovie.movies = responseMovie.results
-        }
-
-        viewModel.movieFromSearch.observe(requireActivity()) { responseMovie ->
-            adapterMovie.movies = responseMovie.results
-            binding.ivThumbnailLatestMovie.setImageDrawable(null)
-            binding.ivThumbnailLatestMovie.isVisible = false
-            binding.tvTitleMovieLatest.isVisible = false
-        }
+    override fun onClick(movie: Movie) {
+        goToDetails(movie)
     }
 
-    override fun EditText.setSearchInput() {
-        this.setOnTouchListener { _, event ->
-            val drawableRight = 2
-            val rightPosition = this.right
-            val width = this.compoundDrawables[drawableRight].bounds.width()
+    override fun goToDetails(movie: Movie) {
+        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
+    }
 
-            if(event.action == MotionEvent.ACTION_UP) {
-                if(event.rawX >= (rightPosition - width)) {
-                    if(this.text.toString().isNotBlank()) {
-                        this.text.clear()
-                    }
-                }
+    private fun EditText.setSearchInput() {
+        onClickRightIcon {
+            if (this.text.toString().isNotBlank()) {
+                this.text.clear()
             }
-            false
         }
-
-        this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) = Unit
-
-            override fun onTextChanged(
-                s: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                if(s.isNullOrEmpty()) {
+        textChange(
+            onTextChanged = {
+                if(it.isNullOrEmpty()) {
                     val iconId = R.drawable.ic_baseline_search_24
                     val icon = ContextCompat.getDrawable(requireContext(), iconId)
                     addRightIcon(icon)
@@ -121,13 +126,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
                     val icon = ContextCompat.getDrawable(requireContext(), iconId)
                     addRightIcon(icon)
                 }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
+            },
+            afterTextChanged = {
                 val text = this@setSearchInput.text.toString()
                 viewModel.searchMovie(text.replace(" ", "+"))
             }
-        })
+        )
     }
 
     private fun EditText.addRightIcon(icon: Drawable?) {
@@ -137,24 +141,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
             icon,
             null
         )
-    }
-
-    override fun setProgressBar() {
-        viewModel.progressBar.observe(requireActivity()) { stateProgressBar ->
-            changeVisibilityProgressBar(stateProgressBar)
-        }
-    }
-
-    private fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
-        binding.progressBar.isVisible = stateProgressBar
-    }
-
-    override fun onClick(movie: Movie) {
-        goToDetails(movie)
-    }
-
-    override fun goToDetails(movie: Movie) {
-        startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
     }
 
     companion object {

@@ -1,13 +1,14 @@
 package br.com.luishenrique.moviesbrasil.details
 
 import android.os.Bundle
-import android.view.View
+import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.base.BaseFragment
+import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentDetailsBinding
 import br.com.luishenrique.moviesbrasil.details.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
+import br.com.luishenrique.moviesbrasil.utils.delayOnLifecycle
 import br.com.luishenrique.moviesbrasil.utils.setImage
 import org.koin.android.ext.android.inject
 
@@ -20,30 +21,25 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), DetailsFragmentC
     override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
     override fun setUpViews() {
-        init()
-        setObservers()
-        setCallbacks()
-    }
-
-    override fun init() {
         viewModel.getDetails(movieId!!)
+
+        setupObserver()
+        setupCallbacks()
     }
 
-    override fun setObservers() {
-        viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetail ->
-            renderDetails(movieDetail)
-        }
-
-        viewModel.progressBar.observe(viewLifecycleOwner) { stateProgressBar ->
-            changeVisibilityProgressBar(stateProgressBar)
-        }
-
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
-            changeIconFavorite(it)
+    override fun setupObserver() {
+        viewModel.command.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is ResourceDetails.Success -> response.data?.let { renderDetails(it) }
+                is ResourceDetails.Error -> errorScreen()
+                is ResourceDetails.Loading -> response.value?.let { changeVisibilityProgressBar(it) }
+                is ResourceDetails.AddedToFavorites -> addedMovieToFavorites()
+                is ResourceDetails.RemovedToFavorites -> removedMovieToFavorites()
+            }
         }
     }
 
-    override fun setCallbacks() {
+    override fun setupCallbacks() {
         binding.imgAddMyList.setOnClickListener {
             clickOnFavorite()
         }
@@ -53,6 +49,14 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), DetailsFragmentC
         viewModel.clickOnFavorite()
     }
 
+    override fun addedMovieToFavorites() {
+        binding.imgAddMyList.setImageResource(R.drawable.baseline_check_24)
+    }
+
+    override fun removedMovieToFavorites() {
+        binding.imgAddMyList.setImageResource(R.drawable.baseline_add_24)
+    }
+
     override fun renderDetails(movieDetail: MovieDetail) {
         setImage(binding.ivPoster, BASE_IMAGE + movieDetail.backdropPath)
         genreAdapter.items = movieDetail.genres
@@ -60,22 +64,12 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), DetailsFragmentC
         binding.overview.text = movieDetail.overview
         binding.ratingStar.rating = movieDetail.voteAverage.toFloat().div(2)
         binding.rvGenres.adapter = genreAdapter
+
+        view?.delayOnLifecycle(10) { viewModel.movieIsSaved() }
     }
 
     override fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
-        if (stateProgressBar) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
-
-    override fun changeIconFavorite(isFavorited: Boolean) {
-        if (isFavorited) {
-            binding.imgAddMyList.setImageResource(R.drawable.baseline_check_24)
-        } else {
-            binding.imgAddMyList.setImageResource(R.drawable.baseline_add_24)
-        }
+        binding.progressBar.isVisible = stateProgressBar
     }
 
     companion object {

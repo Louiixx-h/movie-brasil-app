@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.base
+package br.com.luishenrique.moviesbrasil.common
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

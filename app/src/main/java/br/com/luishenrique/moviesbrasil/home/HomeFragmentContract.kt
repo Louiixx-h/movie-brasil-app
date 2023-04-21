@@ -1,14 +1,16 @@
 package br.com.luishenrique.moviesbrasil.home
 
-import android.widget.EditText
 import br.com.luishenrique.moviesbrasil.home.models.Movie
+import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
 
 interface HomeFragmentContract {
-    fun initView()
-    fun setMovies()
-    fun setProgressBar()
-    fun setBanner(movie: Movie)
-    fun setListMovies()
+    fun setupToolbar()
+    fun setupListMovies()
+    fun setupBanner(movie: Movie)
+    fun setupMovies(firstMovie: Movie?, movies: List<Movie>)
+    fun setupObserver()
+    fun handleSuccess(resultMovie: ResultMovie?)
+    fun handleSearchSuccess(resultMovie: ResultMovie?)
+    fun handleLoading(stateProgressBar: Boolean)
     fun goToDetails(movie: Movie)
-    fun EditText.setSearchInput()
 }
