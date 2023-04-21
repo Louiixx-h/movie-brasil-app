@@ -56,6 +56,10 @@
 * View Model
 * Coroutines
 * View Binding
+* Koin
+* Glide
+* Retrofit
+* Gson
 
 ## Clone project
 
