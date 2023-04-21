@@ -2,46 +2,69 @@ package br.com.luishenrique.moviesbrasil.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.luishenrique.moviesbrasil.common.BaseViewModel
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetailsMapper
+import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
 import br.com.luishenrique.moviesbrasil.details.repository.DetailsRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class DetailsFragmentViewModelImpl(
     private val repository: DetailsRepository
-): ViewModel(), DetailsFragmentViewModel {
+): BaseViewModel(), DetailsFragmentViewModel {
 
-    private val _progressBar = MutableLiveData<Boolean>()
-    override val progressBar: LiveData<Boolean> = _progressBar
+    private val _command = MutableLiveData<ResourceDetails<MovieDetail>>()
+    override val command: LiveData<ResourceDetails<MovieDetail>> = _command
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-    override val isFavorite: LiveData<Boolean> = _isFavorite
-
-    private val _movieDetail = MutableLiveData<MovieDetail>()
-    override val movieDetail: LiveData<MovieDetail> = _movieDetail
+    private val isMovieSaved: MutableLiveData<Boolean> = MutableLiveData()
+    private val movieSaved: MutableLiveData<MovieDetail> = MutableLiveData()
 
     override fun getDetails(movieId: Int) {
+        onLoading(true)
+
         viewModelScope.launch {
-            _progressBar.postValue(true)
-
-            val deferred = async(Dispatchers.IO) { repository.getDetails(movieId) }
-            val response = deferred.await()
-
-            if (response.isSuccessful && response.body() != null) {
-                _movieDetail.value = MovieDetailsMapper.transform(response.body()!!)
-                _isFavorite.value = _movieDetail.value?.let { repository.hasMovie(it) }
-            }
-
-            _progressBar.postValue(false)
+            network.callResponse(
+                block = { repository.getDetails(movieId) },
+                onSuccess = { onSuccessGetMovie(ResourceDetails.Success(it)) },
+                onError = { onErrorGetMovie(it) },
+                finally = { onLoading(false) }
+            )
         }
     }
 
+    override fun onSuccessGetMovie(response: ResourceDetails<MovieDetailsResponseVO>) {
+        val movie = MovieDetailsMapper.transform(response.data)
+
+        movieSaved.postValue(movie)
+        movieIsSaved()
+
+        _command.postValue(ResourceDetails.Success(movie))
+    }
+
+    override fun movieIsSaved() {
+        if(movieSaved.value == null) return
+
+        val response = repository.hasMovie(movieSaved.value!!)
+        isMovieSaved.value = response
+
+        if(isMovieSaved.value == true) {
+            _command.postValue(ResourceDetails.AddedToFavorites())
+        } else {
+            _command.postValue(ResourceDetails.RemovedToFavorites())
+        }
+    }
+
+    override fun onErrorGetMovie(exception: Exception) {
+        _command.postValue(ResourceDetails.Error(exception.message.orEmpty()))
+    }
+
+    override fun onLoading(value: Boolean) {
+        _command.postValue(ResourceDetails.Loading(value))
+    }
+
     override fun clickOnFavorite() {
-        if (_isFavorite.value == true) {
+        if (isMovieSaved.value == true) {
             removeMovieToFavorites()
         } else {
             addMovieToFavorites()
@@ -49,18 +72,20 @@ class DetailsFragmentViewModelImpl(
     }
 
     override fun addMovieToFavorites() {
-        val isAddedToFavorites = _movieDetail.value?.let { repository.addMovieToFavorites(it) }
+        val isAddedToFavorites = movieSaved.value?.let { repository.addMovieToFavorites(it) }
 
         if(isAddedToFavorites == true) {
-            _isFavorite.value = true
+            isMovieSaved.postValue(true)
+            _command.postValue(ResourceDetails.AddedToFavorites())
         }
     }
 
     override fun removeMovieToFavorites() {
-        val isRemovedToFavorites = _movieDetail.value?.let { repository.removeMovieToFavorites(it) }
+        val isRemovedToFavorites = movieSaved.value?.let { repository.removeMovieToFavorites(it) }
 
         if(isRemovedToFavorites == true) {
-            _isFavorite.value = false
+            isMovieSaved.postValue(false)
+            _command.postValue(ResourceDetails.RemovedToFavorites())
         }
     }
 }

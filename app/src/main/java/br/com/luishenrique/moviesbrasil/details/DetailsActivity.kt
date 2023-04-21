@@ -51,7 +51,7 @@ class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
     override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
-            replace(R.id.homeFragmentContainer, fragment, "details")
+            replace(R.id.fragmentContainer, fragment, "details")
         }
     }
 
