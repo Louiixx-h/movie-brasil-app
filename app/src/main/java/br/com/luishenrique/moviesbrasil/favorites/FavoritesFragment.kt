@@ -1,10 +1,10 @@
 package br.com.luishenrique.moviesbrasil.favorites
 
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.base.BaseFragment
+import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentFavoritesBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
@@ -22,8 +22,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
 
     override fun setUpViews() {
         setupToolbar()
-        setComponents()
-        setProgressBar()
+        setupObserver()
     }
 
     private fun setupToolbar() {
@@ -41,29 +40,28 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         viewModel.getMovies()
     }
 
-    override fun setComponents() {
-        viewModel.movies.observe(viewLifecycleOwner) { movies ->
-            renderMovies(movies)
+    override fun setupObserver() {
+        viewModel.command.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ResourceFavorites.Error -> errorScreen()
+                is ResourceFavorites.Loading -> setupLoading(response.value == true)
+                is ResourceFavorites.Success -> renderMovies(response.data)
+            }
         }
     }
 
-    override fun setProgressBar() {
-        viewModel.progressBar.observe(requireActivity()) { stateProgressBar ->
-            changeVisibilityProgressBar(stateProgressBar)
+    override fun renderMovies(movie: List<MovieDetail>?) {
+        if (movie == null) {
+            errorScreen()
+            return
         }
-    }
 
-    override fun renderMovies(movie: List<MovieDetail>) {
         adapterMovie.movies = movie
         binding.rvFavorites.adapter = adapterMovie
     }
 
-    override fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
-        if (stateProgressBar) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
+    override fun setupLoading(stateProgressBar: Boolean) {
+        binding.progressBar.isVisible = stateProgressBar
     }
 
     override fun onClick(movie: MovieDetail) {

@@ -1,64 +1,80 @@
 package br.com.luishenrique.moviesbrasil.home
 
 import androidx.lifecycle.*
+import br.com.luishenrique.moviesbrasil.common.BaseViewModel
 import br.com.luishenrique.moviesbrasil.home.models.MovieMapper
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
+import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
 import br.com.luishenrique.moviesbrasil.home.repository.HomeRepository
 import kotlinx.coroutines.*
 
 class HomeFragmentViewModelImpl(
     private val repository: HomeRepository
-) : ViewModel(), HomeFragmentViewModel {
+) : BaseViewModel(), HomeFragmentViewModel {
 
     private var job: Job? = null
 
-    private val _progressBar = MutableLiveData<Boolean>()
-    override val progressBar: LiveData<Boolean> = _progressBar
-
-    private val _moviePopularList = MutableLiveData<ResultMovie>()
-    override val moviePopularList: LiveData<ResultMovie> = _moviePopularList
-
-    private val _movieFromSearch = MutableLiveData<ResultMovie>()
-    override val movieFromSearch: LiveData<ResultMovie> = _movieFromSearch
+    private val _command = MutableLiveData<ResourceHome<ResultMovie>>()
+    override val command: LiveData<ResourceHome<ResultMovie>> = _command
 
     override fun getMovies() {
-        _progressBar.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                val response = repository.getMovies()
+        onLoading(true)
 
-                if (response.isSuccessful && response.body() != null) {
-                    val movies = MovieMapper.transform(response.body()!!)
-                    _moviePopularList.value = movies
-                }
-
-                _progressBar.postValue(false)
-            }
+        viewModelScope.launch {
+            network.callResponse(
+                block = { repository.getMovies() },
+                onSuccess = { onSuccessGetMovies(ResourceHome.Success(it)) },
+                onError = { onErrorGetMovies(it) },
+                finally = { onLoading(false) }
+            )
         }
     }
 
     override fun searchMovie(title: String) {
         job?.cancel()
 
-        job = viewModelScope.launch(Dispatchers.IO) {
+        if (title.isBlank()) {
+            getMovies()
+            return
+        }
 
-            if (title.isBlank()) {
-                getMovies()
-                job?.cancel()
-                return@launch
-            }
-
+        job = viewModelScope.launch {
             delay(2000)
 
-            withContext(Dispatchers.Main) {
-                _progressBar.postValue(true)
-                val response = repository.searchMovie(title)
+            onLoading(true)
 
-                if (response.isSuccessful && response.body() != null) {
-                    _movieFromSearch.value = MovieMapper.transform(response.body()!!)
-                }
-                _progressBar.postValue(false)
-            }
+            network.callResponse(
+                block = { repository.searchMovie(title) },
+                onSuccess = { onSuccessGetMovies(ResourceHome.SearchSuccess(it)) },
+                onError = { onErrorGetMovies(it) },
+                finally = { onLoading(false) }
+            )
         }
+    }
+
+    override fun onSuccessGetMovies(res: ResourceHome<ResultMovieResponseVO>) {
+        if(res.data == null) {
+            onErrorGetMovies(Exception())
+        }
+
+        val movies = MovieMapper.transform(res.data!!)
+
+        when (res) {
+            is ResourceHome.Success -> {
+                _command.value = ResourceHome.Success(movies)
+            }
+            is ResourceHome.SearchSuccess -> {
+                _command.value = ResourceHome.SearchSuccess(movies)
+            }
+            else -> {}
+        }
+    }
+
+    override fun onErrorGetMovies(exception: Exception) {
+        _command.value = ResourceHome.Error(exception.message.orEmpty())
+    }
+
+    override fun onLoading(value: Boolean) {
+        _command.value = ResourceHome.Loading(value)
     }
 }

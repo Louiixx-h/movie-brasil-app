@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract, NavigationBarVie
     override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
-            replace(R.id.homeFragmentContainer, fragment, "home")
+            replace(R.id.fragmentContainer, fragment, "home")
         }
     }
 

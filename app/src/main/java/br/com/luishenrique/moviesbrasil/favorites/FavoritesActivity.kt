@@ -32,7 +32,7 @@ class FavoritesActivity : AppCompatActivity(), FavoritesActivityContract {
     override fun setFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             addToBackStack(null)
-            replace(R.id.homeFragmentContainer, fragment, "favorites")
+            replace(R.id.fragmentContainer, fragment, "favorites")
         }
     }
 
