@@ -1,4 +1,4 @@
-package br.com.luishenrique.moviesbrasil.base
+package br.com.luishenrique.moviesbrasil.common
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
+import br.com.luishenrique.moviesbrasil.R
 
-abstract class BaseFragment<VBinding : ViewBinding> : Fragment() {
+abstract class BaseFragment<VBinding : ViewBinding> : Fragment(), ErrorScreenListener {
 
     protected lateinit var binding: VBinding
     protected abstract fun getViewBinding(): VBinding
@@ -30,9 +31,18 @@ abstract class BaseFragment<VBinding : ViewBinding> : Fragment() {
         setUpViews()
     }
 
-    open fun setUpViews() {}
-
     private fun init() {
         binding = getViewBinding()
+    }
+
+    open fun setUpViews() {}
+
+    override fun onClickPrimaryButton() = Unit
+
+    protected fun errorScreen() {
+        with(parentFragmentManager.beginTransaction()) {
+            add(R.id.fragmentContainer, ErrorScreenFragment(this@BaseFragment), "error_screen")
+            commit()
+        }
     }
 }
