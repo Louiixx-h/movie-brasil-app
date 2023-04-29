@@ -97,7 +97,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         setImage(
             binding.ivThumbnailLatestMovie,
             requireContext(),
-            BASE_IMAGE + movie.backdropPath
+            BASE_IMAGE + movie.posterPath
         )
     }
 
