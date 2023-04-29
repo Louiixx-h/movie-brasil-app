@@ -1,7 +1,7 @@
 package br.com.luishenrique.moviesbrasil.favorites
 
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
@@ -25,13 +25,10 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
         setupObserver()
     }
 
-    private fun setupToolbar() {
+    override fun setupToolbar() {
         with((requireActivity() as AppCompatActivity)) {
-            val toolbar: Toolbar  = findViewById(R.id.toolbar_main)
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            toolbar.title = getString(R.string.favorites)
+            val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
+            toolbarTitle.text = getString(R.string.favorites)
         }
     }
 
