@@ -19,4 +19,6 @@
     <dimen name="radius_8dp">8dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="width_1dp">1dp</dimen>
+    <dimen name="margin_56dp">56dp</dimen>
+    <dimen name="margin_74dp">74dp</dimen>
 </resources>
