@@ -1,58 +1,60 @@
 package br.com.luishenrique.moviesbrasil.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import br.com.luishenrique.moviesbrasil.R
-import br.com.luishenrique.moviesbrasil.favorites.FavoritesFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
+import br.com.luishenrique.moviesbrasil.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity(), HomeActivityContract, NavigationBarView.OnItemSelectedListener {
+class HomeActivity : AppCompatActivity(), HomeActivityContract {
 
-    private lateinit var bottomNavigation: BottomNavigationView
+    private val navHostFragment: NavHostFragment by lazy {
+        supportFragmentManager.findFragmentById(R.id.navContainer) as NavHostFragment
+    }
+    private val appBarConfig: AppBarConfiguration by lazy {
+        AppBarConfiguration(
+            setOf(R.id.nav_favorites, R.id.nav_home),
+            binding.drawerNavigation
+        )
+    }
+
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bottomNavigation = findViewById(R.id.bottom_navigation)
-
-        setToolbar()
-        setBottomNavigation()
-        setFragment(HomeFragment.newInstance())
+        removeLimits()
+        setupToolbar()
+        setupNavController()
     }
 
-    override fun setToolbar() {
-        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
-        setSupportActionBar(toolbar)
+    override fun setupToolbar() {
+        setSupportActionBar(binding.activityHomeContent.toolbarMain.toolbarMain)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.title = getString(R.string.app_name)
     }
 
-    override fun setBottomNavigation() {
-        bottomNavigation.setOnItemSelectedListener(this)
+    override fun setupNavController() {
+        setupActionBarWithNavController(navHostFragment.navController, appBarConfig)
+        binding.navView.setupWithNavController(navHostFragment.navController)
     }
 
-    override fun setFragment(fragment: Fragment) {
-        supportFragmentManager.commit {
-            addToBackStack(null)
-            replace(R.id.fragmentContainer, fragment, "home")
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        return navHostFragment.navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.menuHome -> {
-                setFragment(HomeFragment.newInstance())
-            }
-            R.id.menuFavorites -> {
-                setFragment(FavoritesFragment.newInstance())
-            }
-        }
-        return false
+    override fun removeLimits() {
+        val w: Window = window
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 }
