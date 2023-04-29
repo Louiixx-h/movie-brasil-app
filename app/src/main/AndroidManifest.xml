@@ -33,7 +33,8 @@
         <activity
             android:name=".home.HomeActivity"
             android:exported="true"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.MoviesBrasil.NoActionBarTransparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

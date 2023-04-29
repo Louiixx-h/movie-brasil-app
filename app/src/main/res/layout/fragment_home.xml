@@ -40,7 +40,7 @@
                 <ImageView
                     android:id="@+id/iv_thumbnail_latest_movie"
                     android:layout_width="match_parent"
-                    android:layout_height="380dp"
+                    android:layout_height="578dp"
                     android:contentDescription="@string/banner"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -51,26 +51,12 @@
                 <View
                     android:id="@+id/v_shadow_movie_latest"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="64dp"
                     android:background="@drawable/bg_shadow_thumbnail"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_latest_movie"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_title_movie_latest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="@dimen/margin_8dp"
-                    android:maxLines="1"
-                    android:text="@string/title"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/iv_thumbnail_latest_movie" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
