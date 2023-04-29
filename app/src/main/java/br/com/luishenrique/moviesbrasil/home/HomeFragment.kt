@@ -2,8 +2,8 @@ package br.com.luishenrique.moviesbrasil.home
 
 import android.graphics.drawable.Drawable
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
@@ -33,13 +33,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         setupObserver()
     }
 
+    override fun setupToolbar() {
+        with((requireActivity() as AppCompatActivity)) {
+            val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
+            toolbarTitle.text = getString(R.string.app_name)
+        }
+    }
+
     override fun setupObserver() {
         viewModel.command.observe(viewLifecycleOwner) { response ->
             when(response) {
                 is ResourceHome.Success -> {
+                    binding.contentHome.emptyView.isVisible = false
                     handleSuccess(response.data)
                 }
                 is ResourceHome.SearchSuccess -> {
+                    binding.contentHome.emptyView.isVisible = true
                     handleSearchSuccess(response.data)
                 }
                 is ResourceHome.Error -> {
@@ -60,7 +69,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
         binding.ivThumbnailLatestMovie.setImageDrawable(null)
         binding.ivThumbnailLatestMovie.isVisible = false
-        binding.tvTitleMovieLatest.isVisible = false
     }
 
     override fun handleLoading(stateProgressBar: Boolean) {
@@ -75,25 +83,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         adapterMovie.movies = movies
     }
 
-    override fun setupToolbar() {
-        with((requireActivity() as AppCompatActivity)) {
-            val toolbar: Toolbar = findViewById(R.id.toolbar_main)
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            toolbar.title = getString(R.string.app_name)
-        }
-    }
-
     override fun setupListMovies() {
         binding.contentHome.rvMovies.adapter = adapterMovie
     }
 
     override fun setupBanner(movie: Movie) {
         binding.ivThumbnailLatestMovie.isVisible = true
-        binding.tvTitleMovieLatest.isVisible = true
 
-        binding.tvTitleMovieLatest.text = movie.title
         setImage(
             binding.ivThumbnailLatestMovie,
             requireContext(),
