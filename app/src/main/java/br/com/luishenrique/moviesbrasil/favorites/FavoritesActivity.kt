@@ -26,7 +26,7 @@ class FavoritesActivity : AppCompatActivity(), FavoritesActivityContract {
     override fun setToolbar() {
         setSupportActionBar(binding.toolbarMain.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbarMain.toolbarMain.title = getString(R.string.favorites)
+        binding.toolbarMain.toolbarTitle.text = getString(R.string.favorites)
     }
 
     override fun setFragment(fragment: Fragment) {

@@ -37,7 +37,7 @@ class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         with(binding.toolbarMain.toolbarMain) {
-            this.title = getString(R.string.details)
+            binding.toolbarMain.toolbarTitle.text = getString(R.string.details)
             this.navigationIcon = ContextCompat.getDrawable(
                 this@DetailsActivity,
                 R.drawable.ic_baseline_arrow_back_24

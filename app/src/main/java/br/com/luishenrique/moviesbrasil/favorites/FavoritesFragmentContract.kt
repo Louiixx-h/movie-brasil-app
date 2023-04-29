@@ -9,4 +9,5 @@ interface FavoritesFragmentContract {
     fun setupObserver()
     fun renderMovies(movie: List<MovieDetail>?)
     fun setupLoading(stateProgressBar: Boolean)
+    fun setupToolbar()
 }
