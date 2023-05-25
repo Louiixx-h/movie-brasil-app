@@ -36,6 +36,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources  = true
+            returnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
@@ -43,6 +49,10 @@ dependencies {
     def lifecycle_version = "2.5.1"
     def nav_version = "2.3.5"
     def koin_android_version = "3.4.0"
+    def mockk_version = "1.13.5"
+    def junit_version = "4.13.2"
+    def core_testing_version = "2.2.0"
+    def coroutine_version = "1.7.0-RC"
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
@@ -79,6 +89,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "junit:junit:$junit_version"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
 }
