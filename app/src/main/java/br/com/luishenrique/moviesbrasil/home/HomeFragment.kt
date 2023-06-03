@@ -13,7 +13,9 @@ import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
-import br.com.luishenrique.moviesbrasil.utils.*
+import br.com.luishenrique.moviesbrasil.utils.onClickRightIcon
+import br.com.luishenrique.moviesbrasil.utils.setImage
+import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
