@@ -85,12 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setupBanner(movies: List<Movie>) {
         binding.ivThumbnailLatestMovie.isVisible = true
-
-        setImage(
-            binding.ivThumbnailLatestMovie,
-            requireContext(),
-            BASE_IMAGE + movie.posterPath
-        )
+        setImage(binding.ivThumbnailLatestMovie, movies.first().posterPath)
     }
 
     override fun onClick(movie: Movie) {
