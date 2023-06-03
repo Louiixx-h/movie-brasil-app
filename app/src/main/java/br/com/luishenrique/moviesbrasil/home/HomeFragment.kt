@@ -129,13 +129,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
             null
         )
     }
-
-    companion object {
-
-        @JvmStatic
-        private val FIRST_MOVIE = 0
-
-        @JvmStatic
-        fun newInstance() = HomeFragment()
-    }
 }
