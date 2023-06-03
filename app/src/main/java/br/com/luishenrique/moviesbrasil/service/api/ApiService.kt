@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.service.api
 
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
 import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
 import retrofit2.Response
@@ -11,7 +12,7 @@ interface ApiService {
 
     @GET(MOVIE_POPULAR)
     suspend fun getMoviesPopular(
-        @Query("api_key") key: String = KEY_USER,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
         @Query("page") page: Int = 1
     ): Response<ResultMovieResponseVO>
@@ -19,14 +20,14 @@ interface ApiService {
     @GET(MOVIE_DETAILS)
     suspend fun getMovieDetail(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") key: String = KEY_USER,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
         @Query("page") page: Int = 1
     ): Response<MovieDetailsResponseVO>
 
     @GET(MOVIE_SEARCH)
     suspend fun searchByTitle(
-        @Query("api_key") key: String = KEY_USER,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
         @Query("query") query: String,
         @Query("include_adult") adult: Boolean = false,
@@ -34,7 +35,7 @@ interface ApiService {
 
     @GET(MOVIE_GENRES)
     suspend fun getGenres(
-        @Query("api_key") key: String = KEY_USER,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
     ): Response<ResultMovieResponseVO>
 
@@ -43,8 +44,6 @@ interface ApiService {
         const val MOVIE_DETAILS = "movie/{movie_id}"
         const val MOVIE_SEARCH = "search/movie"
         const val MOVIE_GENRES = "genre/movie/list"
-
-        const val KEY_USER = "86ef71989f8c4a9a7cc321d7a0f6a528"
         const val LANGUAGE = "en-US"
     }
 }

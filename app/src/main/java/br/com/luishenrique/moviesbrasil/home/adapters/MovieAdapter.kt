@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.home.models.Movie
-import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
 
 class MovieAdapter(
@@ -29,7 +29,7 @@ class MovieAdapter(
         private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail_item_movie)
 
         fun bind(movie: Movie) {
-            setImage(thumbnail, view.context,BASE_IMAGE + movie.posterPath)
+            setImage(thumbnail, view.context, BuildConfig.BASE_URL_IMAGE + movie.posterPath)
             view.setOnClickListener { listenerMovie.onClick(movie) }
         }
     }
