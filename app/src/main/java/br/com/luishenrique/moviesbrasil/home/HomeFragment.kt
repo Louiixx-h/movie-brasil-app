@@ -62,12 +62,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun handleSuccess(resultMovie: ResultMovie?) {
-        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
+        setupMovies(resultMovie?.results.orEmpty())
     }
 
     override fun handleSearchSuccess(resultMovie: ResultMovie?) {
-        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
-        binding.ivThumbnailLatestMovie.setImageDrawable(null)
+        setupMovies(resultMovie?.results.orEmpty())
         binding.ivThumbnailLatestMovie.isVisible = false
     }
 
@@ -75,11 +74,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         binding.progressBar.isVisible = stateProgressBar
     }
 
-    override fun setupMovies(firstMovie: Movie?, movies: List<Movie>) {
-        if(firstMovie !== null) {
-            setupBanner(firstMovie)
-        }
-
+    override fun setupMovies(movies: List<Movie>) {
+        setupBanner(movies.slice(0 .. 5))
         adapterMovie.movies = movies
     }
 
@@ -87,7 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         binding.contentHome.rvMovies.adapter = adapterMovie
     }
 
-    override fun setupBanner(movie: Movie) {
+    override fun setupBanner(movies: List<Movie>) {
         binding.ivThumbnailLatestMovie.isVisible = true
 
         setImage(
