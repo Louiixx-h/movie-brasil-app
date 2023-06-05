@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
@@ -13,7 +14,8 @@ import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
-import br.com.luishenrique.moviesbrasil.utils.*
+import br.com.luishenrique.moviesbrasil.utils.onClickRightIcon
+import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -62,12 +64,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
     }
 
     override fun handleSuccess(resultMovie: ResultMovie?) {
-        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
+        setupMovies(resultMovie?.results.orEmpty())
     }
 
     override fun handleSearchSuccess(resultMovie: ResultMovie?) {
-        setupMovies(resultMovie?.results?.get(FIRST_MOVIE), resultMovie?.results.orEmpty())
-        binding.ivThumbnailLatestMovie.setImageDrawable(null)
+        setupMovies(resultMovie?.results.orEmpty())
         binding.ivThumbnailLatestMovie.isVisible = false
     }
 
@@ -75,11 +76,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         binding.progressBar.isVisible = stateProgressBar
     }
 
-    override fun setupMovies(firstMovie: Movie?, movies: List<Movie>) {
-        if(firstMovie !== null) {
-            setupBanner(firstMovie)
-        }
-
+    override fun setupMovies(movies: List<Movie>) {
+        setupBanner(movies.slice(0 .. 5))
         adapterMovie.movies = movies
     }
 
@@ -87,14 +85,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
         binding.contentHome.rvMovies.adapter = adapterMovie
     }
 
-    override fun setupBanner(movie: Movie) {
+    override fun setupBanner(movies: List<Movie>) {
         binding.ivThumbnailLatestMovie.isVisible = true
-
-        setImage(
-            binding.ivThumbnailLatestMovie,
-            requireContext(),
-            BASE_IMAGE + movie.posterPath
-        )
+        binding.ivThumbnailLatestMovie.setList(movies.map { BuildConfig.BASE_URL_IMAGE + it.posterPath })
     }
 
     override fun onClick(movie: Movie) {
@@ -137,14 +130,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
             icon,
             null
         )
-    }
-
-    companion object {
-
-        @JvmStatic
-        private val FIRST_MOVIE = 0
-
-        @JvmStatic
-        fun newInstance() = HomeFragment()
     }
 }

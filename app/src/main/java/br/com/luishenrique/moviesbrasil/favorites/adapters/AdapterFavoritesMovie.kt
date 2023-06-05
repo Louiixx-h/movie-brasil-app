@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
-import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.setImage
 
 class AdapterFavoritesMovie(
@@ -34,7 +34,7 @@ class AdapterFavoritesMovie(
             setImage(
                 thumbnail,
                 view.context,
-                BASE_IMAGE + movie.backdropPath
+                BuildConfig.BASE_URL_IMAGE + movie.backdropPath
             )
 
             view.setOnClickListener { listenerMovie.onClick(movie) }

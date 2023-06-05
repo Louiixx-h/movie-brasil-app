@@ -2,12 +2,12 @@ package br.com.luishenrique.moviesbrasil.details
 
 import android.os.Bundle
 import androidx.core.view.isVisible
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentDetailsBinding
 import br.com.luishenrique.moviesbrasil.details.adapters.GenreAdapter
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
-import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.delayOnLifecycle
 import br.com.luishenrique.moviesbrasil.utils.setImage
 import org.koin.android.ext.android.inject
@@ -58,7 +58,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(), DetailsFragmentC
     }
 
     override fun renderDetails(movieDetail: MovieDetail) {
-        setImage(binding.ivPoster, BASE_IMAGE + movieDetail.backdropPath)
+        setImage(binding.ivPoster, BuildConfig.BASE_URL_IMAGE + movieDetail.backdropPath)
         genreAdapter.items = movieDetail.genres
         binding.tvTitle.text = movieDetail.originalTitle
         binding.overview.text = movieDetail.overview
