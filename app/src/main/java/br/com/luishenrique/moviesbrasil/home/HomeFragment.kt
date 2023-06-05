@@ -13,8 +13,8 @@ import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
+import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.onClickRightIcon
-import br.com.luishenrique.moviesbrasil.utils.setImage
 import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setupBanner(movies: List<Movie>) {
         binding.ivThumbnailLatestMovie.isVisible = true
-        setImage(binding.ivThumbnailLatestMovie, movies.first().posterPath)
+        binding.ivThumbnailLatestMovie.setList(movies.map { BASE_IMAGE + it.posterPath })
     }
 
     override fun onClick(movie: Movie) {
