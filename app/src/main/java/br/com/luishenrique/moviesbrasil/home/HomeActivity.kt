@@ -1,8 +1,6 @@
 package br.com.luishenrique.moviesbrasil.home
 
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,7 +29,6 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        removeLimits()
         setupToolbar()
         setupNavController()
     }
@@ -48,13 +45,5 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract {
 
     override fun onSupportNavigateUp(): Boolean {
         return navHostFragment.navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
-    }
-
-    override fun removeLimits() {
-        val w: Window = window
-        w.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
     }
 }

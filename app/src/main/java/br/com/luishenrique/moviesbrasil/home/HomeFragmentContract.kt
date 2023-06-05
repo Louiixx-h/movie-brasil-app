@@ -6,8 +6,8 @@ import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
 interface HomeFragmentContract {
     fun setupToolbar()
     fun setupListMovies()
-    fun setupBanner(movie: Movie)
-    fun setupMovies(firstMovie: Movie?, movies: List<Movie>)
+    fun setupBanner(movies: List<Movie>)
+    fun setupMovies(movies: List<Movie>)
     fun setupObserver()
     fun handleSuccess(resultMovie: ResultMovie?)
     fun handleSearchSuccess(resultMovie: ResultMovie?)
