@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
@@ -13,7 +14,6 @@ import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
-import br.com.luishenrique.moviesbrasil.utils.BASE_IMAGE
 import br.com.luishenrique.moviesbrasil.utils.onClickRightIcon
 import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
@@ -87,7 +87,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, 
 
     override fun setupBanner(movies: List<Movie>) {
         binding.ivThumbnailLatestMovie.isVisible = true
-        binding.ivThumbnailLatestMovie.setList(movies.map { BASE_IMAGE + it.posterPath })
+        binding.ivThumbnailLatestMovie.setList(movies.map { BuildConfig.BASE_URL_IMAGE + it.posterPath })
     }
 
     override fun onClick(movie: Movie) {
