@@ -33,6 +33,9 @@ android {
     viewBinding {
         enabled = true
     }
+    dataBinding {
+        enabled = true
+    }
     buildFeatures {
         viewBinding true
     }
@@ -46,7 +49,6 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'androidx.databinding:databinding-runtime:7.4.2'
 
     // Koin
     implementation "io.insert-koin:koin-android:$koin_android_version"
