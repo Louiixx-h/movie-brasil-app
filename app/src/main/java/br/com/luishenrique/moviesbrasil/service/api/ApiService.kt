@@ -44,6 +44,6 @@ interface ApiService {
         const val MOVIE_DETAILS = "movie/{movie_id}"
         const val MOVIE_SEARCH = "search/movie"
         const val MOVIE_GENRES = "genre/movie/list"
-        const val LANGUAGE = "en-US"
+        const val LANGUAGE = "pt-br"
     }
 }
