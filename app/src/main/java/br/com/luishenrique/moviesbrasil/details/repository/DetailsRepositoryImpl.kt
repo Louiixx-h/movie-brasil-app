@@ -2,6 +2,8 @@ package br.com.luishenrique.moviesbrasil.details.repository
 
 import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.SimilarResultMovieResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.VideosResultMovieResponseVO
 import br.com.luishenrique.moviesbrasil.service.Storage
 import br.com.luishenrique.moviesbrasil.service.api.ApiService
 import retrofit2.Response
@@ -13,6 +15,14 @@ class DetailsRepositoryImpl(
 
     override suspend fun getDetails(movieId: Int): Response<MovieDetailsResponseVO> {
         return service.getMovieDetail(movieId)
+    }
+
+    override suspend fun getSimilarMovies(movieId: Int): Response<SimilarResultMovieResponseVO> {
+        return service.getMovieSimilar(movieId)
+    }
+
+    override suspend fun getMoviesVideos(movieId: Int): Response<VideosResultMovieResponseVO> {
+        return service.getMoviesVideos(movieId)
     }
 
     override fun addMovieToFavorites(movie: MovieDetail): Boolean {
