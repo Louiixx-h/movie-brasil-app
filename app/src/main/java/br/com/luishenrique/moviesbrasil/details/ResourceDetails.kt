@@ -11,3 +11,19 @@ sealed class ResourceDetails<T>(
     class AddedToFavorites<T> : ResourceDetails<T>()
     class RemovedToFavorites<T> : ResourceDetails<T>()
 }
+
+sealed class ResourceSimilarMovie<T>(
+    val data: T? = null,
+    val message: String? = null,
+    val value: Boolean? = null
+) {
+    class Success<T>(data: T) : ResourceSimilarMovie<T>(data)
+}
+
+sealed class ResourceMoviesVideos<T>(
+    val data: T? = null,
+    val message: String? = null,
+    val value: Boolean? = null
+) {
+    class Success<T>(data: T) : ResourceMoviesVideos<T>(data)
+}
