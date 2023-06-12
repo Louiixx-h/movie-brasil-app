@@ -59,7 +59,7 @@
         android:visibility="gone"
         android:indeterminate="true"
         android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/primary_color"
+        android:indeterminateTint="@color/gray_BDBDBD"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="bottom|center"
         tools:visibility="visible"/>

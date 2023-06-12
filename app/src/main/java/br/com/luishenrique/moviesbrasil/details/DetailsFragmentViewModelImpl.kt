@@ -75,12 +75,12 @@ class DetailsFragmentViewModelImpl(
     }
 
     override fun onSuccessGetMoviesVideos(response: ResourceMoviesVideos<VideosResultMovieResponseVO>) {
-        val movies = MoviesVideosMapper.transform(response.data)
+        val movies = VideosMoviesMapper.transform(response.data)
         _commandVideos.value = ResourceMoviesVideos.Success(movies)
     }
 
     override fun onSuccessGetSimilarMovie(response: ResourceSimilarMovie<SimilarResultMovieResponseVO>) {
-        val movies = MovieSimilarMapper.transform(response.data)
+        val movies = SimilarMovieMapper.transform(response.data)
         _commandSimilar.value = ResourceSimilarMovie.Success(movies)
     }
 
