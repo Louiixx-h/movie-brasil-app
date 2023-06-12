@@ -2,6 +2,8 @@ package br.com.luishenrique.moviesbrasil.service.api
 
 import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.SimilarResultMovieResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.VideosResultMovieResponseVO
 import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,6 +27,23 @@ interface ApiService {
         @Query("page") page: Int = 1
     ): Response<MovieDetailsResponseVO>
 
+    @GET(MOVIE_VIDEOS)
+    suspend fun getMoviesVideos(
+        @Path("movie_id") movieId: Int,
+        @Query("include_video_language") videoLanguage: String = LANGUAGE_VIDEO,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
+    ): Response<VideosResultMovieResponseVO>
+
+    @GET(MOVIE_SIMILAR)
+    suspend fun getMovieSimilar(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") key: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
+    ): Response<SimilarResultMovieResponseVO>
+
     @GET(MOVIE_SEARCH)
     suspend fun searchByTitle(
         @Query("api_key") key: String = BuildConfig.API_KEY,
@@ -42,8 +61,11 @@ interface ApiService {
     companion object {
         const val MOVIE_POPULAR = "movie/popular"
         const val MOVIE_DETAILS = "movie/{movie_id}"
+        const val MOVIE_VIDEOS = "movie/{movie_id}/videos"
+        const val MOVIE_SIMILAR = "movie/{movie_id}/similar"
         const val MOVIE_SEARCH = "search/movie"
         const val MOVIE_GENRES = "genre/movie/list"
         const val LANGUAGE = "pt-br"
+        const val LANGUAGE_VIDEO = "en,pt"
     }
 }
