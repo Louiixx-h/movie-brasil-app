@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.luishenrique.moviesbrasil.common.BaseViewModel
-import br.com.luishenrique.moviesbrasil.details.models.MovieDetail
-import br.com.luishenrique.moviesbrasil.details.models.MovieDetailsMapper
+import br.com.luishenrique.moviesbrasil.details.models.*
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.SimilarResultMovieResponseVO
+import br.com.luishenrique.moviesbrasil.details.models.responses.VideosResultMovieResponseVO
 import br.com.luishenrique.moviesbrasil.details.repository.DetailsRepository
 import kotlinx.coroutines.launch
 
@@ -16,6 +17,12 @@ class DetailsFragmentViewModelImpl(
 
     private val _command = MutableLiveData<ResourceDetails<MovieDetail>>()
     override val command: LiveData<ResourceDetails<MovieDetail>> = _command
+
+    private val _commandVideos = MutableLiveData<ResourceMoviesVideos<VideosResultMovie>>()
+    override val commandVideos: LiveData<ResourceMoviesVideos<VideosResultMovie>> = _commandVideos
+
+    private val _commandSimilar = MutableLiveData<ResourceSimilarMovie<SimilarResultMovie>>()
+    override val commandSimilar: LiveData<ResourceSimilarMovie<SimilarResultMovie>> = _commandSimilar
 
     private val isMovieSaved: MutableLiveData<Boolean> = MutableLiveData()
     private val movieSaved: MutableLiveData<MovieDetail> = MutableLiveData()
@@ -33,6 +40,31 @@ class DetailsFragmentViewModelImpl(
         }
     }
 
+    override fun getMoviesVideos(movieId: Int) {
+        onLoading(true)
+
+        viewModelScope.launch {
+            network.callResponse(
+                block = { repository.getMoviesVideos(movieId) },
+                onSuccess = { onSuccessGetMoviesVideos(ResourceMoviesVideos.Success(it)) },
+                onError = { onErrorGetMovie(it) },
+                finally = { onLoading(false) }
+            )
+        }
+    }
+
+    override fun getSimilarMovies(movieId: Int) {
+        onLoading(true)
+
+        viewModelScope.launch {
+            network.callResponse(
+                block = { repository.getSimilarMovies(movieId) },
+                onSuccess = { onSuccessGetSimilarMovie(ResourceSimilarMovie.Success(it)) },
+                onError = { onErrorGetMovie(it) },
+                finally = { onLoading(false) }
+            )
+        }
+    }
     override fun onSuccessGetMovie(response: ResourceDetails<MovieDetailsResponseVO>) {
         val movie = MovieDetailsMapper.transform(response.data)
 
@@ -40,6 +72,16 @@ class DetailsFragmentViewModelImpl(
         movieIsSaved()
 
         _command.postValue(ResourceDetails.Success(movie))
+    }
+
+    override fun onSuccessGetMoviesVideos(response: ResourceMoviesVideos<VideosResultMovieResponseVO>) {
+        val movies = MoviesVideosMapper.transform(response.data)
+        _commandVideos.value = ResourceMoviesVideos.Success(movies)
+    }
+
+    override fun onSuccessGetSimilarMovie(response: ResourceSimilarMovie<SimilarResultMovieResponseVO>) {
+        val movies = MovieSimilarMapper.transform(response.data)
+        _commandSimilar.value = ResourceSimilarMovie.Success(movies)
     }
 
     override fun movieIsSaved() {
