@@ -3,6 +3,7 @@ package br.com.luishenrique.moviesbrasil.details
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
@@ -26,7 +27,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(),
 
     override fun getViewBinding() = FragmentDetailsBinding.inflate(layoutInflater)
 
-    override fun setUpViews() {
+    override fun setUpViews(view: View) {
         viewModel.getDetails(movieId!!)
         viewModel.getSimilarMovies(movieId!!)
         viewModel.getMoviesVideos(movieId!!)

@@ -4,7 +4,6 @@ import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
 
 interface HomeFragmentContract {
-    fun setupToolbar()
     fun setupListMovies()
     fun setupBanner(movies: List<Movie>)
     fun setupMovies(movies: List<Movie>)

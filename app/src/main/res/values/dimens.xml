@@ -23,4 +23,5 @@
     <dimen name="margin_74dp">74dp</dimen>
     <dimen name="radius_4dp">4dp</dimen>
     <dimen name="text_14sp">14sp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 </resources>

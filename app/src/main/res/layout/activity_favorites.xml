@@ -6,7 +6,7 @@
     tools:context=".favorites.FavoritesActivity">
 
     <include
-        android:id="@+id/toolbar_main"
+        android:id="@+id/toolbar_main_favorites"
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -20,6 +20,7 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract {
             setOf(R.id.nav_favorites, R.id.nav_home),
             binding.drawerNavigation
         )
+
     }
 
     private lateinit var binding: ActivityHomeBinding
@@ -28,14 +29,6 @@ class HomeActivity : AppCompatActivity(), HomeActivityContract {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        setupToolbar()
-        setupNavController()
-    }
-
-    override fun setupToolbar() {
-        setSupportActionBar(binding.activityHomeContent.toolbarMain.toolbarMain)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun setupNavController() {

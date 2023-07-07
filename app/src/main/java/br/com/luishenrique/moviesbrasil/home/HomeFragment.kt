@@ -1,9 +1,8 @@
 package br.com.luishenrique.moviesbrasil.home
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.EditText
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.BuildConfig
@@ -19,26 +18,24 @@ import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), HomeFragmentContract, MovieAdapter.ListenerMovie {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(),
+    HomeFragmentContract,
+    MovieAdapter.ListenerMovie {
 
-    private val adapterMovie: MovieAdapter by inject { parametersOf(this) }
-    private val viewModel: HomeFragmentViewModelImpl by inject()
+    private val adapterMovie by inject<MovieAdapter> { parametersOf(this) }
+    private val viewModel by inject<HomeFragmentViewModelImpl>()
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 
-    override fun setUpViews() {
+    override fun setUpViews(view: View) {
         viewModel.getMovies()
         binding.contentHome.searchMovie.setSearchInput()
-
-        setupToolbar()
         setupListMovies()
         setupObserver()
-    }
 
-    override fun setupToolbar() {
-        with((requireActivity() as AppCompatActivity)) {
-            val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
-            toolbarTitle.text = getString(R.string.app_name)
+        (requireActivity() as HomeActivity).run {
+            setSupportActionBar(binding.toolbar)
+            setupNavController()
         }
     }
 

@@ -31,13 +31,13 @@ class DetailsActivity : AppCompatActivity(), DetailsActivityContract {
     }
 
     override fun setToolbar() {
-        setSupportActionBar(binding.toolbarMain.root)
+        setSupportActionBar(binding.toolbarMainDetails.toolbarMain)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = getString(R.string.details)
 
-        with(binding.toolbarMain.toolbarMain) {
-            binding.toolbarMain.toolbarTitle.text = getString(R.string.details)
+        with(binding.toolbarMainDetails.toolbarMain) {
             this.navigationIcon = ContextCompat.getDrawable(
                 this@DetailsActivity,
                 R.drawable.ic_baseline_arrow_back_24

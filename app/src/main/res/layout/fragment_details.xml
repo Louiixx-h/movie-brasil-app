@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_151515"
-    tools:context=".details.DetailsActivity">
+    android:background="@color/black_151515">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,6 +23,7 @@
                 android:id="@+id/iv_poster"
                 android:layout_width="match_parent"
                 android:layout_height="444dp"
+                android:background="@color/gray_272727"
                 android:contentDescription="@string/banner"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +62,7 @@
                     android:layout_height="54dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/bg_outlined_circle"
+                    android:contentDescription="@string/play_movie"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:src="@drawable/ic_play_arrow_24"
@@ -70,8 +71,7 @@
                     android:textSize="@dimen/text_24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/play_movie" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_release_date"
@@ -83,8 +83,8 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/img_play"
-                    app:layout_constraintTop_toTopOf="@+id/img_play"
-                    app:layout_constraintStart_toEndOf="@+id/img_play" />
+                    app:layout_constraintStart_toEndOf="@+id/img_play"
+                    app:layout_constraintTop_toTopOf="@+id/img_play" />
 
                 <TextView
                     android:id="@+id/tv_vote_avarage"
@@ -96,14 +96,15 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/img_play"
-                    app:layout_constraintTop_toTopOf="@+id/img_play"
-                    app:layout_constraintStart_toEndOf="@+id/tv_release_date" />
+                    app:layout_constraintStart_toEndOf="@+id/tv_release_date"
+                    app:layout_constraintTop_toTopOf="@+id/img_play" />
 
                 <ImageView
                     android:id="@+id/img_download_movie"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="@dimen/margin_8dp"
+                    android:contentDescription="@string/add_to_favorites"
                     android:maxLines="1"
                     android:src="@drawable/ic_baseline_download_24"
                     android:text="@string/title"
@@ -112,8 +113,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/img_play"
                     app:layout_constraintEnd_toStartOf="@id/img_add_my_list"
-                    app:layout_constraintTop_toTopOf="@+id/img_play"
-                    android:contentDescription="@string/add_to_favorites" />
+                    app:layout_constraintTop_toTopOf="@+id/img_play" />
 
                 <ImageView
                     android:id="@+id/img_add_my_list"

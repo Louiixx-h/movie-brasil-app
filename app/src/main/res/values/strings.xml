@@ -7,7 +7,7 @@
     <string name="search_movie">Buscar filme</string>
     <string name="banner_do_filme">Banner do filme</string>
     <string name="card_movie">Card do filme</string>
-    <string name="home">Home</string>
+    <string name="home">Movies Brasil</string>
     <string name="search">Buscar Filme</string>
     <string name="favorites">Favoritos</string>
 
@@ -29,4 +29,5 @@
     <string name="similar_movie_label">Conteúdos semelhantes</string>
     <string name="add_to_favorites">Adicionar á minha lista de favoritos</string>
     <string name="play_movie">play</string>
+    <string name="app_logo">logo do aplicativo</string>
 </resources>

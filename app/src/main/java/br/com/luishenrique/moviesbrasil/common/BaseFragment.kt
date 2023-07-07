@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import br.com.luishenrique.moviesbrasil.R
 
@@ -28,14 +29,14 @@ abstract class BaseFragment<VBinding : ViewBinding> : Fragment(), ErrorScreenLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
+        setUpViews(view)
     }
 
     private fun init() {
         binding = getViewBinding()
     }
 
-    open fun setUpViews() {}
+    open fun setUpViews(view: View) {}
 
     override fun onClickPrimaryButton() = Unit
 

@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="Theme.MoviesBrasil" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -16,22 +15,37 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
         <!-- Drawer Navigation style -->
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerArrowStyle">@style/Theme.MoviesBrasil.DrawerArrowStyle</item>
     </style>
+
+    <!-- Toolbar Style -->
 
     <style name="Theme.MoviesBrasil.ActionBarStyle">
-        <item name="android:elevation">0dp</item>
-        <item name="elevation">0dp</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-    
-    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">@color/white_f2f2f2</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:theme">@style/CustomToolbarTheme</item>
+        <item name="titleTextAppearance">@style/CustomTitleTextAppearance</item>
+        <item name="subtitleTextAppearance">@style/CustomSubTitleTextAppearance</item>
     </style>
 
-    <style name="AnimationStyle">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    <style name="CustomToolbarTheme">
+        <item name="android:textColorPrimary">@color/white_f2f2f2</item>
+        <item name="android:textColorSecondary">@color/white_f2f2f2</item>
+    </style>
+
+    <style name="CustomTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomSubTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <!-- Drawer Navigation Style -->
+
+    <style name="Theme.MoviesBrasil.DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/white_f2f2f2</item>
     </style>
 </resources>

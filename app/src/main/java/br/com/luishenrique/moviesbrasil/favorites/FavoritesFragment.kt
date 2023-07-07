@@ -1,5 +1,6 @@
 package br.com.luishenrique.moviesbrasil.favorites
 
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -20,16 +21,12 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>(),
 
     override fun getViewBinding() = FragmentFavoritesBinding.inflate(layoutInflater)
 
-    override fun setUpViews() {
+    override fun setUpViews(view: View) {
         setupToolbar()
         setupObserver()
     }
 
     override fun setupToolbar() {
-        with((requireActivity() as AppCompatActivity)) {
-            val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
-            toolbarTitle.text = getString(R.string.favorites)
-        }
     }
 
     override fun onResume() {
