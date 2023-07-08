@@ -10,6 +10,7 @@ interface HomeFragmentContract {
     fun setupObserver()
     fun handleSuccess(resultMovie: ResultMovie?)
     fun handleSearchSuccess(resultMovie: ResultMovie?)
-    fun handleLoading(stateProgressBar: Boolean)
     fun goToDetails(movie: Movie)
+    fun showLoader()
+    fun hideLoader()
 }

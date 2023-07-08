@@ -43,11 +43,23 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(),
 
     private val detailsInfoObserver: (response: ResourceDetails<MovieDetail>) -> Unit = { response ->
         when(response) {
-            is ResourceDetails.Success -> response.data?.let { renderDetails(it) }
-            is ResourceDetails.Error -> errorScreen()
-            is ResourceDetails.Loading -> response.value?.let { changeVisibilityProgressBar(it) }
-            is ResourceDetails.AddedToFavorites -> addedMovieToFavorites()
-            is ResourceDetails.RemovedToFavorites -> removedMovieToFavorites()
+            is ResourceDetails.Success -> response.data?.let {
+                renderDetails(it)
+                hideLoader()
+            }
+            is ResourceDetails.Error -> {
+                errorScreen()
+                hideLoader()
+            }
+            is ResourceDetails.Loading -> response.value?.let {
+                showLoader()
+            }
+            is ResourceDetails.AddedToFavorites -> {
+                addedMovieToFavorites()
+            }
+            is ResourceDetails.RemovedToFavorites -> {
+                removedMovieToFavorites()
+            }
         }
     }
 
@@ -103,14 +115,22 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(),
             tvTitle.text = movieDetail.originalTitle
             overview.text = movieDetail.overview
             tvReleaseDate.text = Regex("\\d{4}").find(movieDetail.releaseDate)?.value
-            tvVoteAvarage.text = String.format("%.2f", movieDetail.voteAverage)
+            tvVoteAverage.text = String.format("%.2f", movieDetail.voteAverage)
             rvGenres.adapter = genreAdapter
         }
         view?.delayOnLifecycle(10) { viewModel.movieIsSaved() }
     }
 
-    override fun changeVisibilityProgressBar(stateProgressBar: Boolean) {
-        binding.progressBar.isVisible = stateProgressBar
+    override fun showLoader() {
+        binding.shimmerDetailsContainer.shimmerDetailsContainer.startShimmer()
+        binding.shimmerDetailsContainer.shimmerDetailsContainer.isVisible = true
+        binding.detailsInfoContainer.isVisible = false
+    }
+
+    override fun hideLoader() {
+        binding.shimmerDetailsContainer.shimmerDetailsContainer.stopShimmer()
+        binding.shimmerDetailsContainer.shimmerDetailsContainer.isVisible = false
+        binding.detailsInfoContainer.isVisible = true
     }
 
     override fun goToDetails(movie: SimilarMovie) {

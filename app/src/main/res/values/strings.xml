@@ -30,4 +30,8 @@
     <string name="add_to_favorites">Adicionar á minha lista de favoritos</string>
     <string name="play_movie">play</string>
     <string name="app_logo">logo do aplicativo</string>
+    
+    <!-- Details Screen -->
+    <string name="vote_average_model_details">8.4</string>
+    <string name="release_date_model_details">2020</string>
 </resources>

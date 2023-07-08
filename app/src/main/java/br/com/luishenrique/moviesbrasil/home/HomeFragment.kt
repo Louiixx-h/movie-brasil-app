@@ -45,16 +45,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 is ResourceHome.Success -> {
                     binding.contentHome.emptyView.isVisible = false
                     handleSuccess(response.data)
+                    hideLoader()
                 }
                 is ResourceHome.SearchSuccess -> {
                     binding.contentHome.emptyView.isVisible = true
                     handleSearchSuccess(response.data)
+                    hideLoader()
                 }
                 is ResourceHome.Error -> {
                     errorScreen()
+                    hideLoader()
                 }
                 is ResourceHome.Loading -> {
-                    handleLoading(response.value ?: false)
+                    showLoader()
                 }
             }
         }
@@ -69,8 +72,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
         binding.ivThumbnailLatestMovie.isVisible = false
     }
 
-    override fun handleLoading(stateProgressBar: Boolean) {
-        binding.progressBar.isVisible = stateProgressBar
+    override fun showLoader() {
+        binding.shimmerHomeContainer.shimmerDetailsContainer.startShimmer()
+        binding.shimmerHomeContainer.shimmerDetailsContainer.isVisible = true
+        binding.appBar.isVisible = false
+        binding.listContainer.isVisible = false
+    }
+
+    override fun hideLoader() {
+        binding.shimmerHomeContainer.shimmerDetailsContainer.stopShimmer()
+        binding.shimmerHomeContainer.shimmerDetailsContainer.isVisible = false
+        binding.appBar.isVisible = true
+        binding.listContainer.isVisible = true
     }
 
     override fun setupMovies(movies: List<Movie>) {
