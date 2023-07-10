@@ -12,8 +12,6 @@ class HomeFragmentViewModelImpl(
     private val repository: HomeRepository
 ) : BaseViewModel(), HomeFragmentViewModel {
 
-    private var job: Job? = null
-
     private val _command = MutableLiveData<ResourceHome<ResultMovie>>()
     override val command: LiveData<ResourceHome<ResultMovie>> = _command
 
@@ -29,43 +27,13 @@ class HomeFragmentViewModelImpl(
         }
     }
 
-    override fun searchMovie(title: String) {
-        job?.cancel()
-
-        if (title.isBlank()) {
-            getMovies()
-            return
-        }
-
-        job = viewModelScope.launch {
-            delay(2000)
-
-            onLoading()
-
-            network.callResponse(
-                block = { repository.searchMovie(title) },
-                onSuccess = { onSuccessGetMovies(ResourceHome.SearchSuccess(it)) },
-                onError = { onErrorGetMovies(it) }
-            )
-        }
-    }
-
-    override fun onSuccessGetMovies(res: ResourceHome<ResultMovieResponseVO>) {
+    override fun onSuccessGetMovies(res: ResourceHome.Success<ResultMovieResponseVO>) {
         if(res.data == null) {
             onErrorGetMovies(Exception())
         }
 
         val movies = MovieMapper.transform(res.data!!)
-
-        when (res) {
-            is ResourceHome.Success -> {
-                _command.value = ResourceHome.Success(movies)
-            }
-            is ResourceHome.SearchSuccess -> {
-                _command.value = ResourceHome.SearchSuccess(movies)
-            }
-            else -> {}
-        }
+        _command.value = ResourceHome.Success(movies)
     }
 
     override fun onErrorGetMovies(exception: Exception) {

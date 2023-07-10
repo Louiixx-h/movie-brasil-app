@@ -5,5 +5,4 @@ import retrofit2.Response
 
 interface HomeRepository {
     suspend fun getMovies(): Response<ResultMovieResponseVO>
-    suspend fun searchMovie(title: String): Response<ResultMovieResponseVO>
 }

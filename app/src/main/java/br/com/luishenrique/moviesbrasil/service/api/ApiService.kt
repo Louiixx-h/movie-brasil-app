@@ -4,7 +4,8 @@ import br.com.luishenrique.moviesbrasil.BuildConfig
 import br.com.luishenrique.moviesbrasil.details.models.responses.MovieDetailsResponseVO
 import br.com.luishenrique.moviesbrasil.details.models.responses.SimilarResultMovieResponseVO
 import br.com.luishenrique.moviesbrasil.details.models.responses.VideosResultMovieResponseVO
-import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO
+import br.com.luishenrique.moviesbrasil.search.models.responses.ResultMovieResponseVO
+import br.com.luishenrique.moviesbrasil.home.models.responses.ResultMovieResponseVO as HomeResultMovieResponseVO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,7 +18,7 @@ interface ApiService {
         @Query("api_key") key: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
         @Query("page") page: Int = 1
-    ): Response<ResultMovieResponseVO>
+    ): Response<HomeResultMovieResponseVO>
 
     @GET(MOVIE_DETAILS)
     suspend fun getMovieDetail(
@@ -52,19 +53,12 @@ interface ApiService {
         @Query("include_adult") adult: Boolean = false,
     ): Response<ResultMovieResponseVO>
 
-    @GET(MOVIE_GENRES)
-    suspend fun getGenres(
-        @Query("api_key") key: String = BuildConfig.API_KEY,
-        @Query("language") language: String = LANGUAGE,
-    ): Response<ResultMovieResponseVO>
-
     companion object {
         const val MOVIE_POPULAR = "movie/popular"
         const val MOVIE_DETAILS = "movie/{movie_id}"
         const val MOVIE_VIDEOS = "movie/{movie_id}/videos"
         const val MOVIE_SIMILAR = "movie/{movie_id}/similar"
         const val MOVIE_SEARCH = "search/movie"
-        const val MOVIE_GENRES = "genre/movie/list"
         const val LANGUAGE = "pt-br"
         const val LANGUAGE_VIDEO = "en,pt"
     }

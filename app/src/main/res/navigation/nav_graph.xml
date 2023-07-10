@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="br.com.luishenrique.moviesbrasil.home.HomeFragment"
+        android:name="br.com.luishenrique.moviesbrasil.search.SearchFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home"/>
 

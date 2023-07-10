@@ -1,20 +1,14 @@
 package br.com.luishenrique.moviesbrasil.home
 
-import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.EditText
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import br.com.luishenrique.moviesbrasil.BuildConfig
-import br.com.luishenrique.moviesbrasil.R
 import br.com.luishenrique.moviesbrasil.common.BaseFragment
 import br.com.luishenrique.moviesbrasil.databinding.FragmentHomeBinding
 import br.com.luishenrique.moviesbrasil.details.DetailsActivity
 import br.com.luishenrique.moviesbrasil.home.adapters.MovieAdapter
 import br.com.luishenrique.moviesbrasil.home.models.Movie
 import br.com.luishenrique.moviesbrasil.home.models.ResultMovie
-import br.com.luishenrique.moviesbrasil.utils.onClickRightIcon
-import br.com.luishenrique.moviesbrasil.utils.textChange
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -29,7 +23,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
     override fun setUpViews(view: View) {
         viewModel.getMovies()
-        binding.contentHome.searchMovie.setSearchInput()
         setupListMovies()
         setupObserver()
 
@@ -45,11 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
                 is ResourceHome.Success -> {
                     binding.contentHome.emptyView.isVisible = false
                     handleSuccess(response.data)
-                    hideLoader()
-                }
-                is ResourceHome.SearchSuccess -> {
-                    binding.contentHome.emptyView.isVisible = true
-                    handleSearchSuccess(response.data)
                     hideLoader()
                 }
                 is ResourceHome.Error -> {
@@ -106,39 +94,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(),
 
     override fun goToDetails(movie: Movie) {
         startActivity(DetailsActivity.newInstance(requireActivity(), movie.id))
-    }
-
-    private fun EditText.setSearchInput() {
-        onClickRightIcon {
-            if (this.text.toString().isNotBlank()) {
-                this.text.clear()
-            }
-        }
-        textChange(
-            onTextChanged = {
-                if(it.isNullOrEmpty()) {
-                    val iconId = R.drawable.ic_baseline_search_24
-                    val icon = ContextCompat.getDrawable(requireContext(), iconId)
-                    addRightIcon(icon)
-                } else {
-                    val iconId = R.drawable.ic_baseline_cancel_24
-                    val icon = ContextCompat.getDrawable(requireContext(), iconId)
-                    addRightIcon(icon)
-                }
-            },
-            afterTextChanged = {
-                val text = this@setSearchInput.text.toString()
-                viewModel.searchMovie(text.replace(" ", "+"))
-            }
-        )
-    }
-
-    private fun EditText.addRightIcon(icon: Drawable?) {
-        this.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
-            icon,
-            null
-        )
     }
 }

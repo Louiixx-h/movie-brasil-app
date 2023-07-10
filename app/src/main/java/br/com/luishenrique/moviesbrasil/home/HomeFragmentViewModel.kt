@@ -8,8 +8,7 @@ interface HomeFragmentViewModel {
     val command: LiveData<ResourceHome<ResultMovie>>
 
     fun getMovies()
-    fun searchMovie(title: String)
-    fun onSuccessGetMovies(res: ResourceHome<ResultMovieResponseVO>)
+    fun onSuccessGetMovies(res: ResourceHome.Success<ResultMovieResponseVO>)
     fun onErrorGetMovies(exception: Exception)
     fun onLoading()
 }
