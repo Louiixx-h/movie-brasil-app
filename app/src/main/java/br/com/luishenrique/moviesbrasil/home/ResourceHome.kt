@@ -8,5 +8,5 @@ sealed class ResourceHome<T>(
     class Success<T>(data: T) : ResourceHome<T>(data)
     class SearchSuccess<T>(data: T) : ResourceHome<T>(data)
     class Error<T>(message: String, data: T? = null) : ResourceHome<T>(data, message)
-    class Loading<T>(value: Boolean) : ResourceHome<T>(value = value)
+    class Loading<T> : ResourceHome<T>()
 }

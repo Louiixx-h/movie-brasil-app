@@ -9,7 +9,7 @@ class NetworkImpl: Network {
         block: suspend () -> Response<T>,
         onSuccess: (T) -> Unit,
         onError: (Exception) -> Unit,
-        finally: () -> Unit
+        finally: (() -> Unit)?
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -23,7 +23,7 @@ class NetworkImpl: Network {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) { onError(e) }
             } finally {
-                withContext(Dispatchers.Main) { finally() }
+                withContext(Dispatchers.Main) { finally?.invoke() }
             }
         }
     }
@@ -32,7 +32,7 @@ class NetworkImpl: Network {
         block: suspend () -> T?,
         onSuccess: (T) -> Unit,
         onError: (Exception) -> Unit,
-        finally: () -> Unit
+        finally: (() -> Unit)?
     ) {
         withContext(Dispatchers.IO) {
             try {
@@ -45,7 +45,7 @@ class NetworkImpl: Network {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) { onError(e) }
             } finally {
-                withContext(Dispatchers.Main) { finally() }
+                withContext(Dispatchers.Main) { finally?.invoke() }
             }
         }
     }

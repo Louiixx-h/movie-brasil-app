@@ -11,5 +11,5 @@ interface HomeFragmentViewModel {
     fun searchMovie(title: String)
     fun onSuccessGetMovies(res: ResourceHome<ResultMovieResponseVO>)
     fun onErrorGetMovies(exception: Exception)
-    fun onLoading(value: Boolean)
+    fun onLoading()
 }

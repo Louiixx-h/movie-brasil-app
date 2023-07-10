@@ -8,13 +8,13 @@ interface Network {
         block: suspend () -> Response<T>,
         onSuccess: (T) -> Unit,
         onError: (Exception) -> Unit,
-        finally: () -> Unit
+        finally: (() -> Unit)? = null
     )
 
     suspend fun <T : Any> call(
         block: suspend () -> T?,
         onSuccess: (T) -> Unit,
         onError: (Exception) -> Unit,
-        finally: () -> Unit
+        finally: (() -> Unit)? = null
     )
 }

@@ -18,14 +18,13 @@ class HomeFragmentViewModelImpl(
     override val command: LiveData<ResourceHome<ResultMovie>> = _command
 
     override fun getMovies() {
-        onLoading(true)
+        onLoading()
 
         viewModelScope.launch {
             network.callResponse(
                 block = { repository.getMovies() },
                 onSuccess = { onSuccessGetMovies(ResourceHome.Success(it)) },
-                onError = { onErrorGetMovies(it) },
-                finally = { onLoading(false) }
+                onError = { onErrorGetMovies(it) }
             )
         }
     }
@@ -41,13 +40,12 @@ class HomeFragmentViewModelImpl(
         job = viewModelScope.launch {
             delay(2000)
 
-            onLoading(true)
+            onLoading()
 
             network.callResponse(
                 block = { repository.searchMovie(title) },
                 onSuccess = { onSuccessGetMovies(ResourceHome.SearchSuccess(it)) },
-                onError = { onErrorGetMovies(it) },
-                finally = { onLoading(false) }
+                onError = { onErrorGetMovies(it) }
             )
         }
     }
@@ -74,7 +72,7 @@ class HomeFragmentViewModelImpl(
         _command.value = ResourceHome.Error(exception.message.orEmpty())
     }
 
-    override fun onLoading(value: Boolean) {
-        _command.value = ResourceHome.Loading(value)
+    override fun onLoading() {
+        _command.value = ResourceHome.Loading()
     }
 }

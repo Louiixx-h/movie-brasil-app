@@ -18,7 +18,7 @@ interface DetailsFragmentViewModel {
     fun onSuccessGetMovie(response: ResourceDetails<MovieDetailsResponseVO>)
     fun onSuccessGetSimilarMovie(response: ResourceSimilarMovie<SimilarResultMovieResponseVO>)
     fun onErrorGetMovie(exception: Exception)
-    fun onLoading(value: Boolean)
+    fun onLoading()
     fun clickOnFavorite()
     fun addMovieToFavorites()
     fun removeMovieToFavorites()

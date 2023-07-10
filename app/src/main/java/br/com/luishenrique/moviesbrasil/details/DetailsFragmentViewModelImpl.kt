@@ -28,40 +28,37 @@ class DetailsFragmentViewModelImpl(
     private val movieSaved: MutableLiveData<MovieDetail> = MutableLiveData()
 
     override fun getDetails(movieId: Int) {
-        onLoading(true)
+        onLoading()
 
         viewModelScope.launch {
             network.callResponse(
                 block = { repository.getDetails(movieId) },
                 onSuccess = { onSuccessGetMovie(ResourceDetails.Success(it)) },
-                onError = { onErrorGetMovie(it) },
-                finally = { onLoading(false) }
+                onError = { onErrorGetMovie(it) }
             )
         }
     }
 
     override fun getMoviesVideos(movieId: Int) {
-        onLoading(true)
+        onLoading()
 
         viewModelScope.launch {
             network.callResponse(
                 block = { repository.getMoviesVideos(movieId) },
                 onSuccess = { onSuccessGetMoviesVideos(ResourceMoviesVideos.Success(it)) },
-                onError = { onErrorGetMovie(it) },
-                finally = { onLoading(false) }
+                onError = { onErrorGetMovie(it) }
             )
         }
     }
 
     override fun getSimilarMovies(movieId: Int) {
-        onLoading(true)
+        onLoading()
 
         viewModelScope.launch {
             network.callResponse(
                 block = { repository.getSimilarMovies(movieId) },
                 onSuccess = { onSuccessGetSimilarMovie(ResourceSimilarMovie.Success(it)) },
-                onError = { onErrorGetMovie(it) },
-                finally = { onLoading(false) }
+                onError = { onErrorGetMovie(it) }
             )
         }
     }
@@ -101,8 +98,8 @@ class DetailsFragmentViewModelImpl(
         _command.postValue(ResourceDetails.Error(exception.message.orEmpty()))
     }
 
-    override fun onLoading(value: Boolean) {
-        _command.postValue(ResourceDetails.Loading(value))
+    override fun onLoading() {
+        _command.postValue(ResourceDetails.Loading())
     }
 
     override fun clickOnFavorite() {

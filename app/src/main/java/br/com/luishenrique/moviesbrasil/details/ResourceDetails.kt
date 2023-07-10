@@ -7,7 +7,7 @@ sealed class ResourceDetails<T>(
 ) {
     class Success<T>(data: T) : ResourceDetails<T>(data)
     class Error<T>(message: String, data: T? = null) : ResourceDetails<T>(data, message)
-    class Loading<T>(value: Boolean) : ResourceDetails<T>(value = value)
+    class Loading<T> : ResourceDetails<T>()
     class AddedToFavorites<T> : ResourceDetails<T>()
     class RemovedToFavorites<T> : ResourceDetails<T>()
 }
