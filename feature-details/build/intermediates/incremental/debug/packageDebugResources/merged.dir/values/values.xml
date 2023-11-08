@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_to_favorites">Adicionar á minha lista de favoritos</string>
+    <string name="banner">Banner</string>
+    <string name="details">Detalhes</string>
+    <string name="item_description">O confronto final entre as forças do bem e do mal que lutam pelo controle do futuro da Terra Média se aproxima. Sauron planeja um grande ataque a Minas Tirith, capital de Gondor, o que faz com que Gandalf e Pippin partam para o local na intenção de ajudar a resistência. Um exército é reunido por Theoden em Rohan, em mais uma tentativa de deter as forças de Sauron. Enquanto isso, Frodo, Sam e Gollum seguem sua viagem rumo à Montanha da Perdição para destruir o anel.</string>
+    <string name="play_movie">play</string>
+    <string name="release_date_model_details">2020</string>
+    <string name="similar_movie_label">Conteúdos semelhantes</string>
+    <string name="title">título</string>
+    <string name="vote_average_model_details">8.4</string>
+</resources>

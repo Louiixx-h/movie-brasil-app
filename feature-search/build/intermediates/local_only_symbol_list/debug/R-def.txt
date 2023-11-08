@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+id content_home
+id iv_thumbnail_item_movie
+id rv_movies
+id searchContentGroup
+id searchShimmerContainer
+id search_movie
+id shimmerMovieGenres1
+id shimmerMovieGenres2
+id shimmerMovieGenres3
+id shimmerMovieGenres4
+id shimmerMovieGenres5
+id shimmerMovieGenres6
+id shimmerMovieGenres7
+id shimmerMovieGenres8
+id shimmerMovieSearch
+layout fragment_search
+layout item_movie
+string card_movie

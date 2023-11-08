@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+id error_button
+id error_container
+id error_description
+id fragmentContainer
+layout fragment_error_screen

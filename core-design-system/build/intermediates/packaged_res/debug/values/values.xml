@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="black_151515">#111111</color>
+    <color name="black_transparent_8F000000">#AB111111</color>
+    <color name="blue_039BE5">#039BE5</color>
+    <color name="blue_29B6F6">#29B6F6</color>
+    <color name="dark_color">#FF00600f</color>
+    <color name="gray_272727">#272727</color>
+    <color name="gray_757575">#757575</color>
+    <color name="gray_BDBDBD">#BDBDBD</color>
+    <color name="light_color">#FF6abf69</color>
+    <color name="primary_color">#FF388e3c</color>
+    <color name="secondary_color">#fdd835</color>
+    <color name="secondary_dark_color">#c6a700</color>
+    <color name="secondary_light_color">#ffff6b</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_f2f2f2">#f2f2f2</color>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="height_56dp">56dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_56dp">56dp</dimen>
+    <dimen name="margin_69dp">69dp</dimen>
+    <dimen name="margin_74dp">74dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="radius_16dp">16dp</dimen>
+    <dimen name="radius_4dp">4dp</dimen>
+    <dimen name="radius_8dp">8dp</dimen>
+    <dimen name="size_40dp">40dp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
+    <dimen name="text_16sp">16sp</dimen>
+    <dimen name="text_18sp">18sp</dimen>
+    <dimen name="text_24sp">24sp</dimen>
+    <dimen name="text_32sp">32sp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="width_1dp">1dp</dimen>
+    <dimen name="width_2dp">2dp</dimen>
+    <string name="banner">Banner</string>
+    <declare-styleable name="CarouselComponent">
+        <attr format="float" name="delay"/>
+    </declare-styleable>
+</resources>
